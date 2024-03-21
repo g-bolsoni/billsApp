@@ -1,28 +1,37 @@
-import React from 'react';
-import { Image, ScrollView, Text, View, ImageSourcePropType } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, View } from 'react-native';
 
 import { styles } from './styles';
 import income from '../../../assets/entrada.svg';
 import expenses from '../../../assets/saida.svg';
-import total from '../../../assets/money.svg';
+import total_image from '../../../assets/money.svg';
+import { ICards } from './props';
+import { handleTotalData } from './actions';
 
-interface ICards {
-    title: string;
-    imageSource: ImageSourcePropType;
-    data: {
-        isLoading: boolean;
-        data: number;
-    }
-}
+
 export function Cards() {
-    const Card = ({ title, imageSource, data }: ICards) => (
+    const [totalIncome, setTotalIncome] = useState(0);
+    const [totalExpenses, setTotalExpenses] = useState(0);
+    const [total, setTotal] = useState(0);
+
+    useEffect( ()=>{
+        (async () => {
+            const response = await handleTotalData();
+            setTotalIncome(response.totalIncome);
+            setTotalExpenses(response.totalExpenses);
+            setTotal(response.total);
+        })();
+    }, []);
+
+
+    const Card = ({ title, imageSource, value }: ICards) => (
         <View style={styles.card}>
             <View style={styles.titleInfo}>
                 <Text style={styles.cardText}>{title}</Text>
                 <Image source={imageSource} style={styles.icon} />
             </View>
             <Text style={styles.amount}>
-                {data.isLoading ? 'Carregando...' : formatCurrency(data.data)}
+                {formatCurrency(value)}
             </Text>
         </View>
     );
@@ -45,26 +54,17 @@ export function Cards() {
             <Card
                 title="Entradas"
                 imageSource={income}
-                data={{
-                    isLoading: false,
-                    data: 100
-                }}
+                value={totalIncome}
             />
             <Card
                 title="Saídas"
                 imageSource={expenses}
-                data={{
-                    isLoading: false,
-                    data: 100
-                }}
+                value={totalExpenses}
             />
             <Card
                 title="Total dos gastos"
-                imageSource={total}
-                data={{
-                    isLoading: false,
-                    data: 100
-                }}
+                imageSource={total_image}
+                value={total}
             />
         </ScrollView>
     );
