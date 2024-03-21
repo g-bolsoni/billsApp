@@ -2,10 +2,10 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
-import logo from '../../../assets/logo.svg';
 import { Cards } from '../Cards';
+import logo from '../../../assets/logo.svg';
 
-export function Header({ navigation }: any) {
+export function Header({ navigation }:any) {
     return (
         <>
             <View style={styles.header}>
@@ -17,7 +17,7 @@ export function Header({ navigation }: any) {
                         />
                         <Text style={styles.title}>Gb Money</Text>
                     </View>
-                    <TouchableOpacity style={styles.buttonHeader} onPress={() => navigation.navigate('Form')}>
+                    <TouchableOpacity style={styles.buttonHeader}  onPress={() => navigation.navigate('Forms')}>
                         <Text style={styles.buttonText}> Nova Transação </Text>
                     </TouchableOpacity>
                 </View>
