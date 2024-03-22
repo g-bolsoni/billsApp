@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: colors.gray[700]
     }
-})
+});
