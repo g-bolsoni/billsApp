@@ -7,8 +7,16 @@ const {Navigator, Screen } = createStackNavigator();
 export function StackRoutes() {
   return (
     <Navigator>
-      <Screen name="Home" component={Home} />
-      <Screen name="Forms" component={Forms} />
+      <Screen name="Home" component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Screen name="Forms" component={Forms}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Navigator>
   );
 }

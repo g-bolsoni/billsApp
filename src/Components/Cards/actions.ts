@@ -25,26 +25,3 @@ export const handleTotalData = async () => {
     total
   }
 }
-
-// const handleTotalExpenses = async () => {
-//   const response = await api.get('/filter?bill_type=Expenses');
-//   const totalExpenses = response.data.reduce((acc: number, item: IBills) => acc + item.bill_value, 0);
-//   return totalExpenses;
-// }
-
-// export function useBillData() {
-//   const income = useQuery({
-//     queryFn: totalIncome,
-//     queryKey: ['income-data'],
-//     refetchInterval: 60 * 5 * 1000
-//   });
-
-//   const expenses = useQuery({
-//     queryFn: totalExpenses,
-//     queryKey: ['expenses-data'],
-//     refetchInterval: 60 * 5 * 1000
-//   });
-
-//   const total = income.data - expenses.data;
-//   return { income, expenses, total };
-// }

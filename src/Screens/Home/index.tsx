@@ -1,13 +1,15 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { Header } from '../../Components/Header';
 import { colors } from '../../Constants/Colors';
+import { TableInfo } from '../../Components/TableInfo';
 
-export function Home() {
+export function Home({navigation}: any) {
     return (
-        <View style={styles.HomeContainer}>
-            <Header />
-        </View>
+        <ScrollView style={styles.HomeContainer}>
+            <Header navigation={navigation} />
+            <TableInfo />
+        </ScrollView>
     );
 }
 

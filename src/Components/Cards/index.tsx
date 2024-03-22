@@ -7,6 +7,7 @@ import expenses from '../../../assets/saida.svg';
 import total_image from '../../../assets/money.svg';
 import { ICards } from './props';
 import { handleTotalData } from './actions';
+import { formatCurrency } from '../../Utils/convertValueToReal';
 
 
 export function Cards() {
@@ -36,13 +37,7 @@ export function Cards() {
         </View>
     );
 
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-            minimumFractionDigits: 2
-        }).format(value);
-    };
+
 
     return (
         <ScrollView
