@@ -3,18 +3,13 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import axios from 'axios';
 
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useAuth } from '../../Contexts/AuthContext';
-
 
 import { styles } from './styles';
 import { RootStackParamList } from '../../../navigation';
-
-const api = axios.create({
-  baseURL: 'https://seu-backend.com/api', // ajuste conforme necessário
-});
+import { handleRegister } from './actions';
+import { useAuth } from '../../Contexts/AuthContext';
 
 const schemaForm = z.object({
   name: z
@@ -51,48 +46,17 @@ const schemaForm = z.object({
 type IUser = z.infer<typeof schemaForm>;
 
 export function RegisterComponent() {
+  const { signIn } = useAuth();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<IUser>({
+  const { handleSubmit, formState: { errors }, setValue } = useForm<IUser>({
     criteriaMode: 'all',
     mode: 'all',
     resolver: zodResolver(schemaForm)
   });
 
-  const handleCreateUser = async ({ name, email, password, confirmPassword }: IUser) => {
-    try {
-      const createUser = await api.post('/auth/register', {
-        name,
-        email,
-        password,
-        confirmPassword
-      });
-
-      if (createUser.status !== 201) {
-        console.error(createUser);
-        return;
-      }
-
-      // Implementar lógica de autenticação com as credenciais criadas
-      // const createCredentials = await signIn('credentials', {
-      //   email: email,
-      //   password: password,
-      //   redirect: false
-      // });
-
-      // if (createCredentials?.error) {
-      //   console.error(createCredentials);
-      //   return;
-      // }
-
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
-
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = async (data: { name: string; email: string; password: string; confirmPassword: string }) => {
+    await handleRegister(data.name, data.email, data.password, data.confirmPassword, signIn, navigation);
   };
 
   return (
@@ -145,7 +109,7 @@ export function RegisterComponent() {
       <View style={styles.actions}>
         <TouchableOpacity
           style={styles.button}
-          onPress={handleSubmit(handleCreateUser)}
+          onPress={handleSubmit(onSubmit)}
           disabled={Object.keys(errors).length > 0}
         >
           <Text style={styles.buttonText}>Cadastrar</Text>
