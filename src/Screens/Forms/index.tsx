@@ -10,7 +10,6 @@ import { IBills } from "../../Components/Cards/props";
 import { colors } from "../../Constants/Colors";
 
 const billSchema = z.object({
-    _id: z.string(),
     bill_name: z.string().min(1, 'Bill name is required'),
     bill_category: z.string(),
     bill_type: z.enum(['Income', 'Expenses']),
@@ -23,7 +22,7 @@ const billSchema = z.object({
 });
 type BillFormValues = z.infer<typeof billSchema>;
 
-export function Forms({navigation}: any) {
+export function Forms({ navigation }: any) {
     const { control, handleSubmit, setValue, formState: { errors }, watch } = useForm<BillFormValues>({
         resolver: zodResolver(billSchema),
         defaultValues: {
@@ -41,13 +40,10 @@ export function Forms({navigation}: any) {
 
     return (
         <>
-            {/* <Header />
-            <TouchableOpacity  onPress={() => navigation.navigate('Home')}>
-                <Text > Voltar Home </Text>
-            </TouchableOpacity> */}
 
 
             <View style={styles.container}>
+
                 {/* bill_name */}
                 <View>
                     <Text>Name:</Text>
@@ -55,12 +51,12 @@ export function Forms({navigation}: any) {
                         control={control}
                         name="bill_name"
                         render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                            style={styles.input}
-                        />
+                            <TextInput
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                style={styles.input}
+                            />
                         )}
                     />
                     {errors.bill_name && <Text style={styles.error}>{errors.bill_name.message?.toString()}</Text>}
@@ -72,12 +68,12 @@ export function Forms({navigation}: any) {
                         control={control}
                         name="bill_category"
                         render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                            style={styles.input}
-                        />
+                            <TextInput
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                style={styles.input}
+                            />
                         )}
                     />
                     {errors.bill_category && <Text style={styles.error}>{errors.bill_category.message?.toString()}</Text>}
@@ -94,9 +90,9 @@ export function Forms({navigation}: any) {
                                 onValueChange={itemValue => onChange(itemValue)}
                                 style={styles.input}
                             >
-                            <Picker.Item label="Income" value="Income" />
-                            <Picker.Item label="Expenses" value="Expenses" />
-                          </Picker>
+                                <Picker.Item label="Entrada" value="Income" />
+                                <Picker.Item label="Saida" value="Expenses" />
+                            </Picker>
                         )}
                     />
                     {errors.bill_type && <Text style={styles.error}>{errors.bill_type.message?.toString()}</Text>}
@@ -135,10 +131,10 @@ export function Forms({navigation}: any) {
                                 onValueChange={itemValue => onChange(itemValue)}
                                 style={styles.input}
                             >
-                            <Picker.Item label="Pix" value="pix" />
-                            <Picker.Item label="Cartão de Cŕedito" value="credit" />
-                            <Picker.Item label="Cartão de Débito" value="debit" />
-                          </Picker>
+                                <Picker.Item label="Pix" value="pix" />
+                                <Picker.Item label="Cartão de Crédito" value="credit" />
+                                <Picker.Item label="Cartão de Débito" value="debit" />
+                            </Picker>
                         )}
                     />
                     {errors.payment_type && <Text style={styles.error}>{errors.payment_type.message?.toString()}</Text>}
@@ -160,6 +156,22 @@ export function Forms({navigation}: any) {
                         )}
                     />
                     {errors.bill_value && <Text style={styles.error}>{errors.bill_value.message?.toString()}</Text>}
+                </View>
+                {/* fixed */}
+                <View>
+                    <Text>Conta Fixa?</Text>
+                    <Controller
+                        control={control}
+                        name="fixed"
+                        render={({ field: { onChange, value } }) => (
+                            <Switch
+                                onValueChange={onChange}
+                                value={value}
+                                style={styles.switch}
+                            />
+                        )}
+                    />
+                    {errors.repeat && <Text style={styles.error}>{errors.repeat.message?.toString()}</Text>}
                 </View>
                 {/* repeat */}
                 <View>
@@ -185,60 +197,75 @@ export function Forms({navigation}: any) {
                             control={control}
                             name="installments"
                             render={({ field: { onChange, onBlur, value } }) => (
-                            <TextInput
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                value={value}
-                                style={styles.input}
-                            />
+                                <TextInput
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    style={styles.input}
+                                />
                             )}
                         />
                         {errors.installments && <Text style={styles.error}>{errors.installments.message?.toString()}</Text>}
                     </View>
                 }
-                {/* fixed */}
-                <View>
-                    <Text>Conta Fixa?</Text>
-                    <Controller
-                        control={control}
-                        name="fixed"
-                        render={({ field: { onChange, value } }) => (
-                            <Switch
-                                onValueChange={onChange}
-                                value={value}
-                                style={styles.switch}
-                            />
-                        )}
-                    />
-                    {errors.repeat && <Text style={styles.error}>{errors.repeat.message?.toString()}</Text>}
+
+
+
+                <View style={styles.buttonsContainer}>
+                    <TouchableOpacity style={styles.buttonBackHome} onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.buttonText}> Página Inicial </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.buttonBackHome} onPress={handleSubmit(onSubmit)}>
+                        <Text style={styles.buttonText}> Enviar </Text>
+                    </TouchableOpacity>
                 </View>
-
-
-                <Button title="Submit" onPress={handleSubmit(onSubmit)} />
             </View>
         </>
     );
 }
 
 const styles = StyleSheet.create({
+    buttonBackHome: {
+        display: 'flex',
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        backgroundColor: colors.gray[400],
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 12,
+        borderRadius: 8,
+        marginBottom: 20
+    },
+    buttonsContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: '500'
+    },
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      padding: 20,
-      backgroundColor: colors.gray[700]
+        flex: 1,
+        padding: 20,
+        backgroundColor: colors.gray[700]
     },
     input: {
-      borderWidth: 1,
-      borderColor: 'gray',
-      marginBottom: 10,
-      padding: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        marginBottom: 10,
+        padding: 10,
     },
     error: {
-      color: 'red',
-      marginBottom: 10,
+        color: 'red',
+        marginBottom: 10,
     },
     switch: {
         marginTop: 10,
         marginBottom: 10,
-      },
+    },
 });
