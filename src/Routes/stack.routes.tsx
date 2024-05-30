@@ -10,7 +10,6 @@ const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
 export function StackRoutes() {
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <Navigator>

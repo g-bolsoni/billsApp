@@ -2,8 +2,8 @@ import axios from 'axios';
 import { BASE_URL } from '../Constants/BaseUrlApi';
 
 interface LoginResponse {
-  token: string;
-  email: string;
+  Token: string;
+  message: string;
 }
 
 export const fetchAuthLogin = async (email: string, password: string): Promise<LoginResponse> => {
