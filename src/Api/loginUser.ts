@@ -8,5 +8,6 @@ interface LoginResponse {
 
 export const fetchAuthLogin = async (email: string, password: string): Promise<LoginResponse> => {
   const response = await axios.post(`${BASE_URL}/auth/login`, { email, password });
+
   return response.data;
 };

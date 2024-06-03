@@ -7,6 +7,7 @@ export const handleLogin = async (email: string, password: string, signIn: Funct
     const { message, Token } = await fetchAuthLogin(email, password);
 
     if (message !== "Auth token is valid") {
+      console.error('Erro de autenticação:', message);
       return message;
     }
 

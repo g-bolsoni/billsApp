@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     cardsContainer: {
         flex: 1,
         paddingHorizontal: 24,
-        marginTop: -70,
+        marginTop: -50,
         height: 120,
         maxHeight: 150,
         zIndex: 20

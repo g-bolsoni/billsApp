@@ -9,11 +9,12 @@ export const styles = StyleSheet.create({
         zIndex: 10
     },
     container: {
-        paddingHorizontal: 24,
-        paddingTop: 40,
-        flexDirection: 'row',
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        gap: 10,
+        flexDirection: 'column',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'flex-start',
     },
     logoSection: {
         flexDirection: 'row',
@@ -22,6 +23,14 @@ export const styles = StyleSheet.create({
     logo: {
         width: 40,
         height: 40,
+    },
+    buttons: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     title: {
         fontSize: 20,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,6 +9,9 @@ import { useAuth } from '../../Contexts/AuthContext';
 import { styles } from './styles';
 import { RootStackParamList } from '../../../navigation';
 import { handleLogin } from './actions';
+
+import Logo from '../../../assets/logo.svg';
+
 const schemaForm = z.object({
   email: z
     .string()
@@ -18,12 +21,6 @@ const schemaForm = z.object({
   password: z
     .string()
     .min(8, 'A senha deve ter pelo menos 8 caracteres')
-    .refine(value => /[A-Z]/.test(value), {
-      message: 'A senha deve conter pelo menos uma letra maiúscula',
-    })
-    .refine(value => /[^A-Za-z0-9]/.test(value), {
-      message: 'A senha deve conter pelo menos um caractere especial',
-    })
 });
 
 type IUser = z.infer<typeof schemaForm>;
@@ -49,7 +46,7 @@ export function LoginComponent() {
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <View style={styles.logoSection}>
-
+            <Logo style={styles.logo} />
             <Text style={styles.title}>Gb Money</Text>
           </View>
         </View>

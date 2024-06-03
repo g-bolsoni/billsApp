@@ -1,25 +1,39 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
 import { Cards } from '../Cards';
-import logo from '../../../assets/logo.svg';
+import Logo from '../../../assets/logo.svg';
+import LogoutIcon from '../../../assets/logout.svg'
+import { useAuth } from '../../Contexts/AuthContext';
 
-export function Header({ navigation }:any) {
+export function Header({ navigation }: any) {
+    const { signOut } = useAuth();
+
+    const handleLogout = async () => {
+        await signOut();
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login' }],
+        });
+    };
     return (
         <>
             <View style={styles.header}>
                 <View style={styles.container}>
                     <View style={styles.logoSection}>
-                        <Image
-                            style={styles.logo}
-                            source={logo}
-                        />
+                        <Logo style={styles.logo} />
                         <Text style={styles.title}>Gb Money</Text>
                     </View>
-                    <TouchableOpacity style={styles.buttonHeader}  onPress={() => navigation.navigate('Forms')}>
-                        <Text style={styles.buttonText}> Nova Transação </Text>
-                    </TouchableOpacity>
+
+                    <View style={styles.buttons}>
+                        <TouchableOpacity style={styles.buttonHeader} onPress={() => navigation.navigate('Forms')}>
+                            <Text style={styles.buttonText}> Nova Transação </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleLogout()}>
+                            <LogoutIcon />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
             <Cards />
