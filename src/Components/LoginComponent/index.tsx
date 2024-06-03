@@ -10,7 +10,7 @@ import { styles } from './styles';
 import { RootStackParamList } from '../../../navigation';
 import { handleLogin } from './actions';
 
-import Logo from '../../../assets/logo.svg';
+import logo from '../../../assets/logo.png';
 
 const schemaForm = z.object({
   email: z
@@ -46,7 +46,7 @@ export function LoginComponent() {
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <View style={styles.logoSection}>
-            <Logo style={styles.logo} />
+            <Image source={logo} style={styles.logo} />
             <Text style={styles.title}>Gb Money</Text>
           </View>
         </View>

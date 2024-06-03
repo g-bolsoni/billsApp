@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
 import { Cards } from '../Cards';
-import Logo from '../../../assets/logo.svg';
-import LogoutIcon from '../../../assets/logout.svg'
+import logo from '../../../assets/logo.png';
+import logoutIcon from '../../../assets/logout.png'
 import { useAuth } from '../../Contexts/AuthContext';
 
 export function Header({ navigation }: any) {
@@ -22,7 +22,7 @@ export function Header({ navigation }: any) {
             <View style={styles.header}>
                 <View style={styles.container}>
                     <View style={styles.logoSection}>
-                        <Logo style={styles.logo} />
+                        <Image source={logo} style={styles.logo} />
                         <Text style={styles.title}>Gb Money</Text>
                     </View>
 
@@ -31,7 +31,7 @@ export function Header({ navigation }: any) {
                             <Text style={styles.buttonText}> Nova Transação </Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => handleLogout()}>
-                            <LogoutIcon />
+                            <Image source={logoutIcon} style={styles.logo} />
                         </TouchableOpacity>
                     </View>
                 </View>

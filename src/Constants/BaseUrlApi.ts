@@ -1,1 +1,1 @@
-export const BASE_URL = (process.env.NODE_ENV === "development") ? 'https://a22d-189-41-28-200.ngrok-free.app' : 'https://bills-api-oiyw.onrender.com'
+export const BASE_URL = (process.env.NODE_ENV === "development") ? 'http://localhost:3333' : 'https://bills-api-oiyw.onrender.com'

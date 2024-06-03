@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 
 import { styles } from './styles';
-import income from '../../../assets/entrada.svg';
-import expenses from '../../../assets/saida.svg';
-import total_image from '../../../assets/money.svg';
+import income from '../../../assets/entrada.png';
+import expenses from '../../../assets/saida.png';
+import total_image from '../../../assets/money.png';
 import { ICards } from './props';
 import { handleTotalData } from './actions';
 import { formatCurrency } from '../../Utils/convertValueToReal';

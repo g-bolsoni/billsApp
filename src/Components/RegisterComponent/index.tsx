@@ -11,7 +11,7 @@ import { RootStackParamList } from '../../../navigation';
 import { handleRegister } from './actions';
 import { useAuth } from '../../Contexts/AuthContext';
 
-import Logo from '../../../assets/logo.svg';
+import logo from '../../../assets/logo.png';
 
 const schemaForm = z.object({
   name: z
@@ -67,7 +67,7 @@ export function RegisterComponent() {
 
         <View style={styles.cardHeader}>
           <View style={styles.logoSection}>
-            <Logo style={styles.logo} />
+            <Image source={logo} style={styles.logo} />
             <Text style={styles.title}>Gb Money</Text>
           </View>
         </View>
