@@ -4,9 +4,10 @@ import { colors } from '../../Constants/Colors'
 export const styles = StyleSheet.create({
     header: {
         backgroundColor: colors.gray[800],
-        height: 180,
+        height: 200,
         justifyContent: 'flex-start',
-        zIndex: 10
+        zIndex: 10,
+        paddingTop: 20
     },
     container: {
         paddingHorizontal: 20,
