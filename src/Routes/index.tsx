@@ -1,15 +1,17 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { BottomTabs } from "./tabs.routes";
 import { StackRoutes } from "./stack.routes";
 import { AuthProvider } from "../Contexts/AuthContext";
+import Toast from "react-native-toast-message";
 
 export function Routes() {
     return (
-        <NavigationContainer>
-            <AuthProvider >
-                {/* <BottomTabs /> */}
-                <StackRoutes />
-            </AuthProvider>
-        </NavigationContainer>
+        <>
+            <NavigationContainer>
+                <AuthProvider >
+                    <StackRoutes />
+                </AuthProvider>
+            </NavigationContainer>
+            <Toast />
+        </>
     )
 }

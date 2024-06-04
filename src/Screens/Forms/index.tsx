@@ -1,3 +1,5 @@
+import { styles } from './styles';
+
 import { Text, TouchableOpacity, View, TextInput, StyleSheet, Switch, ScrollView } from "react-native";
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
@@ -5,9 +7,12 @@ import { Picker } from "@react-native-picker/picker";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { colors } from "../../Constants/Colors";
 import { useState } from "react";
 import { formatCurrency } from "../../Utils/convertValueToReal";
+
+import { IBills } from './props';
+import { handleCreateBill } from './actions';
+import Toast from 'react-native-toast-message';
 
 const billSchema = z.object({
     bill_name: z.string().min(1, 'Bill name is required'),
@@ -30,7 +35,9 @@ export function Forms({ navigation }: any) {
             bill_type: 'Income',
             fixed: false,
             repeat: false,
-            installments: ''
+            installments: '',
+            buy_date: new Date().toISOString().split('T')[0],
+            payment_type: 'pix'
         }
     });
 
@@ -41,9 +48,29 @@ export function Forms({ navigation }: any) {
     const repeatValue = watch('repeat');
     const bill_type = watch('bill_type');
 
-    const onSubmit: SubmitHandler<BillFormValues> = (data) => {
+    const onSubmit = async (data: IBills) => {
         console.log(data);
-        // Trate os dados do formulário aqui
+        const createBill = await handleCreateBill(data);
+        if (createBill) {
+            Toast.show({
+                type: 'success',
+                text1: 'Conta adiconada!',
+                position: 'top',
+                topOffset: 0
+            });
+
+            // Navegar para a Home
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+            });
+            return;
+        }
+        Toast.show({
+            type: 'error',
+            text1: 'Ops, Tente novamente!',
+        });
+
     };
 
     // Data
@@ -267,96 +294,3 @@ export function Forms({ navigation }: any) {
         </>
     );
 }
-
-const styles = StyleSheet.create({
-    cardsContainer: {
-        flex: 1,
-        zIndex: 20
-    },
-    container: {
-        flex: 1,
-        paddingTop: 40,
-        padding: 20,
-        backgroundColor: colors.gray[800],
-    },
-    texts: {
-        fontSize: 18,
-        color: colors.gray[200],
-        marginBottom: 10,
-    },
-    label: {
-        color: colors.gray[200],
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: colors.gray[500],
-        borderRadius: 8,
-        marginBottom: 10,
-        padding: 10,
-        color: colors.gray[200],
-        backgroundColor: colors.gray[700],
-    },
-    error: {
-        color: colors.red[500],
-        marginBottom: 10,
-    },
-    switchContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 10,
-    },
-    switch: {
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    datePicker: {
-        width: '100%',
-        marginBottom: 10,
-    },
-    dateButton: {
-        borderWidth: 1,
-        borderColor: colors.gray[500],
-        borderRadius: 8,
-        padding: 10,
-        marginBottom: 10,
-        backgroundColor: colors.gray[700],
-    },
-    dateButtonText: {
-        color: colors.gray[200],
-        textAlign: 'center',
-    },
-    buttonsContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    buttonBackHome: {
-        display: 'flex',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
-        backgroundColor: colors.gray[400],
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 8,
-    },
-    buttonSubmit: {
-        display: 'flex',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
-        backgroundColor: colors.green[500],
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 8,
-    },
-    buttonText: {
-        color: '#ffffff',
-        fontSize: 16,
-        fontWeight: '500',
-    },
-});

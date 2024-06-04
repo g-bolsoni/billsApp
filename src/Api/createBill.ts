@@ -1,20 +1,20 @@
 import axios from 'axios';
 import { BASE_URL } from '../Constants/BaseUrlApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IBills } from '../Screens/Forms/props';
 
-export const fetchBillsData = async () => {
+export const createBill = async (data: IBills) => {
   const token = await AsyncStorage.getItem('@App:token');
+
   if (!token) {
     throw new Error('No token found');
   }
 
-  const response = await axios.get(`${BASE_URL}/bills`, {
+  const response = await axios.post(`${BASE_URL}/bills`, data, {
     headers: {
       Authorization: `${token}`,
-    },
+    }
   });
 
-  if (response.status != 200) return [];
-
-  return response.data;
+  return response;
 }
