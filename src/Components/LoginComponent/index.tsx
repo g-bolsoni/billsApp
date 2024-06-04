@@ -11,6 +11,7 @@ import { RootStackParamList } from '../../../navigation';
 import { handleLogin } from './actions';
 
 import logo from '../../../assets/logo.png';
+import Toast from 'react-native-toast-message';
 
 const schemaForm = z.object({
   email: z
@@ -37,7 +38,26 @@ export function LoginComponent() {
 
 
   const onSubmit = async (data: IUser) => {
-    await handleLogin(data.email, data.password, signIn, navigation);
+    const { ok, message } = await handleLogin(data.email, data.password, signIn);
+
+    if (ok) {
+      Toast.show({
+        type: 'success',
+        text1: 'Login efetuado com sucesso!',
+      });
+      // Navegar para a Home
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+      return;
+    }
+
+    Toast.show({
+      type: 'error',
+      text1: 'Ops!, verifique suas credencias.',
+    });
+
   };
 
   return (

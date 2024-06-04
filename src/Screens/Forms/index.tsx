@@ -56,7 +56,7 @@ export function Forms({ navigation }: any) {
                 type: 'success',
                 text1: 'Conta adiconada!',
                 position: 'top',
-                topOffset: 0
+                topOffset: 40
             });
 
             // Navegar para a Home

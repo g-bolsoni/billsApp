@@ -2,13 +2,13 @@ import { fetchAuthLogin } from "../../Api/loginUser";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const handleLogin = async (email: string, password: string, signIn: Function, navigation: any) => {
+export const handleLogin = async (email: string, password: string, signIn: Function) => {
   try {
     const { message, Token } = await fetchAuthLogin(email, password);
 
     if (message !== "Auth token is valid") {
       console.error('Erro de autenticação:', message);
-      return message;
+      return { ok: false, message: message };
     }
 
     // Armazenar o token e logar o usuário
@@ -18,12 +18,10 @@ export const handleLogin = async (email: string, password: string, signIn: Funct
     await AsyncStorage.setItem('@App:user', email);
     await AsyncStorage.setItem('@App:token', Token);
 
-    // Navegar para a Home
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Home' }],
-    });
+    return { ok: true, message: message };
+
   } catch (error) {
     console.error('Erro ao fazer login:', error);
+    return { ok: false, message: 'Tente novamente mais tarde!' };
   }
 }
