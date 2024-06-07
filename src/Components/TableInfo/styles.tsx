@@ -29,6 +29,18 @@ export const styles = StyleSheet.create({
     textTransform: 'capitalize',
     fontWeight: '500'
   },
+  logo: {
+    width: 20,
+    height: 20,
+  },
+  buttons: {
+    display: 'flex',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+  },
   expenses:{
     backgroundColor: colors.red[100]
   },
