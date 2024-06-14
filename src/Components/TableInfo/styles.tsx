@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderBottomWidth: 1,
+    alignItems: 'center',
     borderColor: colors.gray[500],
   },
   tableHeader: {
@@ -29,9 +30,10 @@ export const styles = StyleSheet.create({
     textTransform: 'capitalize',
     fontWeight: '500'
   },
-  logo: {
+  icons: {
     width: 20,
     height: 20,
+    color: "#000"
   },
   buttons: {
     display: 'flex',
@@ -41,7 +43,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
   },
-  expenses:{
+  expenses: {
     backgroundColor: colors.red[100]
   },
   income: {
