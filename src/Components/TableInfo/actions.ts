@@ -5,15 +5,14 @@ import { IBills } from "./props";
 export const handleGetBills = async () => {
   const response = await fetchBillsData();
   const filteredData = filterLast30Days(response);
-  return filteredData
-
-}
+  return filteredData;
+};
 
 const filterLast30Days = (data: IBills[]) => {
   const today = new Date();
   const thirtyDaysAgo = new Date(today.setDate(today.getDate() - 120));
 
-  return data.filter(item => {
+  return data.filter((item) => {
     const buyDate = new Date(item.buy_date);
     return buyDate >= thirtyDaysAgo;
   });
@@ -26,6 +25,5 @@ export const handleDeleteBill = async (bill_id: string) => {
     return { ok: false, message: response.data.message };
   }
 
-  return { ok: true, message: 'Conta deletada!' };
-
-}
+  return { ok: true, message: "Conta deletada!" };
+};
