@@ -2,6 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "../Screens/Home";
 import { Forms } from "../Screens/Forms";
 import { Login } from "../Screens/Login";
+import { Categories } from "../Screens/Categories";
+import { CategoryForms } from "../Screens/CategoriesForms";
 import { Register } from "../Screens/Register";
 import { useAuth } from "../Contexts/AuthContext";
 import { RootStackParamList } from "../../navigation";
@@ -25,6 +27,16 @@ export function StackRoutes() {
             <Screen
               name="Forms"
               component={Forms}
+              options={{ headerShown: false }}
+            />
+            <Screen
+              name="Categories"
+              component={Categories}
+              options={{ headerShown: false }}
+            />
+            <Screen
+              name="CategoriesForms"
+              component={CategoryForms}
               options={{ headerShown: false }}
             />
           </>

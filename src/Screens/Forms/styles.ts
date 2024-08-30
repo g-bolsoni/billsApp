@@ -1,12 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 import { colors } from "../../Constants/Colors";
-
-
 
 export const styles = StyleSheet.create({
   cardsContainer: {
     flex: 1,
-    zIndex: 20
+    zIndex: 20,
   },
   container: {
     flex: 1,
@@ -38,10 +36,10 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   switchContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 10,
   },
   switch: {
@@ -49,7 +47,7 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   datePicker: {
-    width: '100%',
+    width: "100%",
     marginBottom: 10,
   },
   dateButton: {
@@ -62,36 +60,36 @@ export const styles = StyleSheet.create({
   },
   dateButtonText: {
     color: colors.gray[200],
-    textAlign: 'center',
+    textAlign: "center",
   },
   buttonsContainer: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     gap: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   buttonBackHome: {
-    display: 'flex',
+    display: "flex",
     paddingVertical: 12,
     paddingHorizontal: 20,
     backgroundColor: colors.gray[400],
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 8,
   },
   buttonSubmit: {
-    display: 'flex',
+    display: "flex",
     paddingVertical: 12,
     paddingHorizontal: 20,
     backgroundColor: colors.green[500],
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 8,
   },
   buttonText: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });
