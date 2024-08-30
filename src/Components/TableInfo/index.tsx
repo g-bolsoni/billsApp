@@ -1,28 +1,31 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useContext } from "react";
 import { Image, TouchableOpacity, Text, View } from "react-native";
 
 import { styles } from "./styles";
 import { IBills } from "./props";
-import { handleGetBills, handleDeleteBill } from "./actions";
+import { handleDeleteBill } from "./actions";
 import { formatCurrency } from "../../Utils/convertValueToReal";
+
 import edit from "../../../assets/edit_black.png";
 import remove from "../../../assets/delete_black.png";
 import Toast from "react-native-toast-message";
+import { BillsContext } from "../../Contexts/BillsContext";
 
 export function TableInfo() {
-  const [bills, setBills] = useState<IBills[] | []>([]);
+  const bills = useContext(BillsContext);
+  // const [bills, setBills] = useState<IBills[] | []>([]);
 
-  const fetchBills = useCallback(async () => {
-    const response = await handleGetBills();
+  // const fetchBills = useCallback(async () => {
+  //   const response = await handleGetBills();
 
-    if (response) {
-      setBills(response);
-    }
-  }, []);
+  //   if (response) {
+  //     setBills(response);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    fetchBills();
-  }, [fetchBills]);
+  // useEffect(() => {
+  //   fetchBills();
+  // }, [fetchBills]);
 
   const handleCalculateBillValue = (item: IBills) => {
     const value = item.bill_value * (item.bill_type == "Expenses" ? -1 : 1);
@@ -61,14 +64,14 @@ export function TableInfo() {
 
   return (
     <>
-      {bills.length ? (
-        <View style={styles.table}>
-          <View style={styles.tableRow}>
-            <Text style={styles.tableHeader}>Nome</Text>
-            <Text style={styles.tableHeader}>Valor</Text>
-            <Text style={styles.tableHeader}>Data</Text>
-            <Text style={styles.tableHeader}></Text>
-          </View>
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <Text style={styles.tableHeader}>Nome</Text>
+          <Text style={styles.tableHeader}>Valor</Text>
+          <Text style={styles.tableHeader}>Data</Text>
+          <Text style={styles.tableHeader}></Text>
+        </View>
+        <View style={styles.tableRegisters}>
           {bills.map((item, index) => (
             <View
               key={index}
@@ -110,9 +113,7 @@ export function TableInfo() {
             </View>
           ))}
         </View>
-      ) : (
-        ""
-      )}
+      </View>
     </>
   );
 }

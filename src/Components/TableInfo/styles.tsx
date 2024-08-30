@@ -1,55 +1,64 @@
-import { StyleSheet } from 'react-native';
-import { colors } from '../../Constants/Colors';
+import { StyleSheet } from "react-native";
+import { colors } from "../../Constants/Colors";
 
 export const styles = StyleSheet.create({
   table: {
     borderWidth: 1,
     borderColor: colors.gray[500],
-    marginTop: 16,
-    backgroundColor: colors.gray[500]
+    marginHorizontal: 10,
+    backgroundColor: colors.gray[500],
+    borderRadius: 12,
+    padding: 10,
   },
   tableRow: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
+    flexDirection: "row",
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderBottomWidth: 1,
-    alignItems: 'center',
+    alignItems: "center",
     borderColor: colors.gray[500],
+    borderRadius: 8,
   },
   tableHeader: {
     flex: 1,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: "white",
-    padding: 5,
     fontSize: 18,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
+  },
+  tableRegisters: {
+    display: "flex",
+    flexDirection: "column",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    gap: 5,
   },
   tableCell: {
     flex: 1,
     padding: 5,
-    textTransform: 'capitalize',
-    fontWeight: '500'
+    textTransform: "capitalize",
+    fontWeight: "500",
   },
   icons: {
     width: 20,
     height: 20,
-    color: "#000"
+    color: "#000",
   },
   buttons: {
-    display: 'flex',
+    display: "flex",
     paddingVertical: 10,
     paddingHorizontal: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 8,
   },
   expenses: {
-    backgroundColor: colors.red[100]
+    backgroundColor: colors.red[100],
   },
   income: {
-    backgroundColor: colors.green[200]
+    backgroundColor: colors.green[200],
   },
   bold: {
-    fontWeight: '600'
-  }
+    fontWeight: "600",
+  },
 });
