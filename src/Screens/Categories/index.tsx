@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -8,31 +9,54 @@ import {
   View,
 } from "react-native";
 
-import { BillsContext } from "../../Contexts/BillsContext";
+import { CategoryContext } from "../../Contexts/CategoryContext";
 import { colors } from "../../Constants/Colors";
 import { Header } from "../../Components/Header";
 
 export function Categories({ navigation }: any) {
-  const bills = useContext(BillsContext);
+  const categories = useContext(CategoryContext);
 
   return (
     <>
       <SafeAreaView
         style={[
           styles.CategoryContainer,
-          bills.length ? {} : styles.centerContainer,
+          categories.length ? {} : styles.centerContainer,
         ]}
       >
         <Header navigation={navigation} />
-        {bills.length ? (
-          <View>
-            <Text>Formulario </Text>
-          </View>
+        {categories.length ? (
+          <ScrollView>
+            <View style={styles.innerContainer}>
+              <View style={styles.tableRegisters}>
+                {categories.map((category, index) => {
+                  return (
+                    <>
+                      <View key={index} style={styles.tableRow}>
+                        <Text
+                          style={[
+                            styles.tableCell,
+                            styles.bold,
+                            styles.tableTitle,
+                          ]}
+                        >
+                          {category.name}
+                        </Text>
+                        <Text style={[styles.tableCell, styles.tableText]}>
+                          {category.description}
+                        </Text>
+                      </View>
+                    </>
+                  );
+                })}
+              </View>
+            </View>
+          </ScrollView>
         ) : (
           <ScrollView>
             <View style={styles.innerContainer}>
               <Text style={styles.title}>
-                📂 Organize suas Finanças com Categorias{" "}
+                📂 Organize suas Finanças com Categorias
               </Text>
               <Text style={styles.text}>
                 Criar categorias é o primeiro passo para uma gestão financeira
@@ -111,5 +135,50 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  tableRegisters: {
+    display: "flex",
+    flexDirection: "column",
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    gap: 5,
+  },
+  tableRow: {
+    flexDirection: "column",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    alignItems: "flex-start",
+    borderColor: colors.gray[200],
+    borderRadius: 8,
+  },
+  tableTitle: {
+    fontSize: 20,
+  },
+  tableText: {
+    fontSize: 16,
+  },
+  tableCell: {
+    flex: 1,
+    padding: 5,
+    textTransform: "capitalize",
+    fontWeight: "500",
+    color: colors.gray[200],
+  },
+  icons: {
+    width: 20,
+    height: 20,
+    color: "#000",
+  },
+  buttons: {
+    display: "flex",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+  },
+  bold: {
+    fontWeight: "600",
   },
 });

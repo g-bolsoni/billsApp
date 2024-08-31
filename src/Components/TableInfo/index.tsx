@@ -100,8 +100,8 @@ export function TableInfo() {
                 ]}
               >
                 {/* <TouchableOpacity style={styles.buttons}>
-              <Image source={edit} style={styles.icons} />
-            </TouchableOpacity> */}
+                  <Image source={edit} style={styles.icons} />
+                </TouchableOpacity> */}
 
                 <TouchableOpacity
                   style={styles.buttons}
