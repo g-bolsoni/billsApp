@@ -11,7 +11,6 @@ import {
 
 import { CategoryContext } from "../../Contexts/CategoryContext";
 import { colors } from "../../Constants/Colors";
-import { Header } from "../../Components/Header";
 
 export function Categories({ navigation }: any) {
   const categories = useContext(CategoryContext);
@@ -24,7 +23,6 @@ export function Categories({ navigation }: any) {
           categories.length ? {} : styles.centerContainer,
         ]}
       >
-        <Header navigation={navigation} />
         {categories.length ? (
           <ScrollView>
             <View style={styles.innerContainer}>

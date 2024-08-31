@@ -1,5 +1,11 @@
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthContextData {
   user: any;
@@ -19,14 +25,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const loadStorageData = async () => {
       try {
-        const storagedUser = await AsyncStorage.getItem('@App:user');
-        const storagedToken = await AsyncStorage.getItem('@App:token');
+        const storagedUser = await AsyncStorage.getItem("@App:user");
+        const storagedToken = await AsyncStorage.getItem("@App:token");
 
         if (storagedUser && storagedToken) {
           setUser({ email: storagedUser, token: storagedToken });
         }
       } catch (error) {
-        console.error('Erro ao carregar dados de autenticação do AsyncStorage', error);
+        console.error(
+          "Erro ao carregar dados de autenticação do AsyncStorage",
+          error
+        );
       }
     };
 
@@ -34,15 +43,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const signIn = async (userData: any) => {
+    console.log(userData);
+
     setUser(userData);
-    await AsyncStorage.setItem('@App:user', userData.email);
-    await AsyncStorage.setItem('@App:token', userData.token);
+    await AsyncStorage.setItem("@App:user", userData.email);
+    await AsyncStorage.setItem("@App:token", userData.token);
   };
 
   const signOut = async () => {
     setUser(null);
-    await AsyncStorage.removeItem('@App:user');
-    await AsyncStorage.removeItem('@App:token');
+    await AsyncStorage.removeItem("@App:user");
+    await AsyncStorage.removeItem("@App:token");
   };
 
   return (

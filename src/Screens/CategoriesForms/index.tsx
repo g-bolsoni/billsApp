@@ -12,7 +12,6 @@ import { z } from "zod";
 import { Picker } from "@react-native-picker/picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Header } from "../../Components/Header";
 import { colors } from "../../Constants/Colors";
 import { useState } from "react";
 import { formatCurrency } from "../../Utils/convertValueToReal";
@@ -88,7 +87,6 @@ export function CategoryForms({ navigation }: any) {
 
   return (
     <SafeAreaView style={styles.CategoryFormsContainer}>
-      <Header navigation={navigation} />
       <View style={styles.containerForm}>
         {/* Name => Adiciona um nome para a categoria. */}
         <View style={styles.formItem}>

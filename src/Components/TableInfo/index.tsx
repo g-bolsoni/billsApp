@@ -57,13 +57,19 @@ export function TableInfo() {
       text1: response.message,
     });
 
-    setBills((prevBills) => prevBills.filter((bill) => bill._id !== bill_id));
+    // setBills((prevBills) => prevBills.filter((bill) => bill._id !== bill_id));
     // Atualize a lista de contas diretamente do backend após a remoção
-    await fetchBills();
+    // await fetchBills();
   };
 
   return (
     <>
+      {/* <TouchableOpacity
+            style={styles.buttonHeader}
+            onPress={() => navigation.navigate("Forms")}
+          >
+            <Text style={styles.buttonText}> Nova Transação </Text>
+          </TouchableOpacity> */}
       <View style={styles.table}>
         <View style={styles.tableRow}>
           <Text style={styles.tableHeader}>Nome</Text>

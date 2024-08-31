@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { Header } from "../../Components/Header";
+
 import { colors } from "../../Constants/Colors";
 import { TableInfo } from "../../Components/TableInfo";
 import { BillsContext } from "../../Contexts/BillsContext";
@@ -22,7 +22,6 @@ export function Home({ navigation }: any) {
     <SafeAreaView
       style={[styles.HomeContainer, bills.length ? {} : styles.centerContainer]}
     >
-      <Header navigation={navigation} />
       {bills.length ? (
         <>
           <Cards />
