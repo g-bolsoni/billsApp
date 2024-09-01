@@ -22,7 +22,6 @@ export const CategoriesProvider: React.FC<AuthProviderProps> = ({
 
   const fetchCategories = useCallback(async () => {
     const response = await handleGetCategories();
-    console.log(response);
 
     if (response) {
       setCategories(response);

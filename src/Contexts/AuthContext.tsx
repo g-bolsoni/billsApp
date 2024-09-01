@@ -13,6 +13,12 @@ interface AuthContextData {
   signOut: () => void;
 }
 
+interface UserData {
+  name: string;
+  email: string;
+  token: string;
+}
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 interface AuthProviderProps {
@@ -42,11 +48,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loadStorageData();
   }, []);
 
-  const signIn = async (userData: any) => {
-    console.log(userData);
-
+  const signIn = async (userData: UserData) => {
     setUser(userData);
+
     await AsyncStorage.setItem("@App:user", userData.email);
+    await AsyncStorage.setItem("@App:userName", userData.name);
     await AsyncStorage.setItem("@App:token", userData.token);
   };
 

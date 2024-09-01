@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,7 @@ import { handleLogin } from "./actions";
 
 import logo from "../../../assets/logo.png";
 import Toast from "react-native-toast-message";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const schemaForm = z.object({
   email: z
@@ -28,8 +29,13 @@ export function LoginComponent() {
   const { signIn } = useAuth();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  const [seePassword, setSeePassword] = useState(false);
+
+  const handleSeePassword = () => {
+    setSeePassword(!seePassword);
+  };
+
   const {
-    register,
     handleSubmit,
     formState: { errors },
     setValue,
@@ -89,11 +95,20 @@ export function LoginComponent() {
 
         <View style={styles.formGroup}>
           <Text style={styles.label}>Senha</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            onChangeText={(text) => setValue("password", text)}
-          />
+          <View style={{ position: "relative" }}>
+            <TextInput
+              secureTextEntry={!seePassword}
+              style={styles.input}
+              onChangeText={(text) => setValue("password", text)}
+            />
+            <Icon
+              name={seePassword ? "eye-outline" : "eye-off-outline"}
+              style={{ position: "absolute", top: "25%", right: 20 }}
+              size={20}
+              onPress={() => handleSeePassword()}
+              color="#000"
+            />
+          </View>
           {errors.password?.message && (
             <Text style={styles.error}>{errors.password.message}</Text>
           )}
