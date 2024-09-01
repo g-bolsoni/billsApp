@@ -12,23 +12,34 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const BillsContext = createContext<IBills[]>({} as IBills[]);
+interface BillsContextType {
+  bills: IBills[];
+  setBills: React.Dispatch<React.SetStateAction<IBills[]>>;
+}
+
+export const BillsContext = createContext<BillsContextType>({
+  bills: [],
+  setBills: () => {},
+});
 
 export const BillsProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [bills, setBills] = useState<IBills[]>([]);
 
-  const fetchBills = useCallback(async () => {
+  const fetchBills = async () => {
     const response = await handleGetBills();
+
     if (response) {
       setBills(response);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchBills();
-  }, [fetchBills]);
+  }, []);
 
   return (
-    <BillsContext.Provider value={bills}>{children}</BillsContext.Provider>
+    <BillsContext.Provider value={{ bills, setBills }}>
+      {children}
+    </BillsContext.Provider>
   );
 };

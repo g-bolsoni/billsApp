@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  StyleSheet,
   Switch,
   ScrollView,
 } from "react-native";
@@ -18,12 +17,14 @@ import { Picker } from "@react-native-picker/picker";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { formatCurrency } from "../../Utils/convertValueToReal";
 
 import { IBills } from "./props";
 import { handleCreateBill } from "./actions";
 import Toast from "react-native-toast-message";
+import { handleGetBills } from "../../Components/TableInfo/actions";
+import { BillsContext } from "../../Contexts/BillsContext";
 
 const billSchema = z.object({
   bill_name: z.string().min(1, "Bill name is required"),
@@ -58,6 +59,7 @@ export function Forms({ navigation }: any) {
     },
   });
 
+  const { bills, setBills } = useContext(BillsContext);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [billValue, setBillValue] = useState<string>("");
@@ -67,7 +69,9 @@ export function Forms({ navigation }: any) {
 
   const onSubmit = async (data: IBills) => {
     const createBill = await handleCreateBill(data);
+
     if (createBill) {
+      await fetchBills();
       Toast.show({
         type: "success",
         text1: "Conta adiconada!",
@@ -80,12 +84,22 @@ export function Forms({ navigation }: any) {
         index: 0,
         routes: [{ name: "Home" }],
       });
+
       return;
     }
     Toast.show({
       type: "error",
       text1: "Ops, Tente novamente!",
     });
+  };
+
+  // fetch atualizar Bills
+  const fetchBills = async () => {
+    const response = await handleGetBills();
+
+    if (response) {
+      setBills(response);
+    }
   };
 
   // Data
@@ -112,7 +126,6 @@ export function Forms({ navigation }: any) {
     setBillValue(formatCurrency(numberValue));
     onChange(formattedText);
   };
-  // Valor
 
   return (
     <>

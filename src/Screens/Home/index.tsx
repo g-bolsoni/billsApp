@@ -15,7 +15,7 @@ import { Cards } from "../../Components/Cards";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 
 export function Home({ navigation }: any) {
-  const bills = useContext(BillsContext);
+  const { bills } = useContext(BillsContext);
   const categories = useContext(CategoryContext);
 
   return (

@@ -11,7 +11,7 @@ export function DrawerRoutes() {
         headerShown: false,
       }}
     >
-      <Screen name="Home" component={StackRoutes} />
+      <Screen name="DrawerHome" component={StackRoutes} />
     </Navigator>
   );
 }

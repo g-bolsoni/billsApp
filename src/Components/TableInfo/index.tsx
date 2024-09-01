@@ -1,31 +1,25 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import { Image, TouchableOpacity, Text, View } from "react-native";
 
 import { styles } from "./styles";
 import { IBills } from "./props";
-import { handleDeleteBill } from "./actions";
+import { handleDeleteBill, handleGetBills } from "./actions";
 import { formatCurrency } from "../../Utils/convertValueToReal";
 
-import edit from "../../../assets/edit_black.png";
 import remove from "../../../assets/delete_black.png";
 import Toast from "react-native-toast-message";
 import { BillsContext } from "../../Contexts/BillsContext";
 
 export function TableInfo() {
-  const bills = useContext(BillsContext);
-  // const [bills, setBills] = useState<IBills[] | []>([]);
+  const { bills, setBills } = useContext(BillsContext);
 
-  // const fetchBills = useCallback(async () => {
-  //   const response = await handleGetBills();
+  const fetchBills = async () => {
+    const response = await handleGetBills();
 
-  //   if (response) {
-  //     setBills(response);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   fetchBills();
-  // }, [fetchBills]);
+    if (response) {
+      setBills(response);
+    }
+  };
 
   const handleCalculateBillValue = (item: IBills) => {
     const value = item.bill_value * (item.bill_type == "Expenses" ? -1 : 1);
@@ -57,9 +51,8 @@ export function TableInfo() {
       text1: response.message,
     });
 
-    // setBills((prevBills) => prevBills.filter((bill) => bill._id !== bill_id));
     // Atualize a lista de contas diretamente do backend após a remoção
-    // await fetchBills();
+    await fetchBills();
   };
 
   return (
