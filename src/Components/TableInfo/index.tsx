@@ -6,11 +6,11 @@ import { IBills } from "./props";
 import { handleDeleteBill, handleGetBills } from "./actions";
 import { formatCurrency } from "../../Utils/convertValueToReal";
 
-import remove from "../../../assets/delete_black.png";
 import Toast from "react-native-toast-message";
 import { BillsContext } from "../../Contexts/BillsContext";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-export function TableInfo() {
+export function TableInfo({ navigation }: any) {
   const { bills, setBills } = useContext(BillsContext);
 
   const fetchBills = async () => {
@@ -57,12 +57,12 @@ export function TableInfo() {
 
   return (
     <>
-      {/* <TouchableOpacity
-            style={styles.buttonHeader}
-            onPress={() => navigation.navigate("Forms")}
-          >
-            <Text style={styles.buttonText}> Nova Transação </Text>
-          </TouchableOpacity> */}
+      <TouchableOpacity
+        style={styles.buttonTransaction}
+        onPress={() => navigation.navigate("Forms")}
+      >
+        <Text style={styles.buttonText}> Nova Transação </Text>
+      </TouchableOpacity>
       <View style={styles.table}>
         <View style={styles.tableRow}>
           <Text style={styles.tableHeader}>Nome</Text>
@@ -98,15 +98,11 @@ export function TableInfo() {
                   },
                 ]}
               >
-                {/* <TouchableOpacity style={styles.buttons}>
-                  <Image source={edit} style={styles.icons} />
-                </TouchableOpacity> */}
-
                 <TouchableOpacity
                   style={styles.buttons}
                   onPress={() => handleRemoveBill(item._id)}
                 >
-                  <Image source={remove} style={styles.icons} />
+                  <Icon name="trash-can-outline" size={20} />
                 </TouchableOpacity>
               </Text>
             </View>

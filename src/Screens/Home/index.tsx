@@ -26,7 +26,7 @@ export function Home({ navigation }: any) {
         <>
           <Cards />
           <ScrollView>
-            <TableInfo />
+            <TableInfo navigation={navigation} />
           </ScrollView>
         </>
       ) : (

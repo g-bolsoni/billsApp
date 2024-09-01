@@ -39,11 +39,6 @@ export const styles = StyleSheet.create({
     textTransform: "capitalize",
     fontWeight: "500",
   },
-  icons: {
-    width: 20,
-    height: 20,
-    color: "#000",
-  },
   buttons: {
     display: "flex",
     paddingVertical: 10,
@@ -60,5 +55,22 @@ export const styles = StyleSheet.create({
   },
   bold: {
     fontWeight: "600",
+  },
+  buttonTransaction: {
+    height: 40,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    backgroundColor: colors.gray[500],
+    width: 150,
+    marginLeft: 10,
+    marginBottom: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+  },
+  buttonText: {
+    fontSize: 14,
+    color: colors.gray[200],
   },
 });
