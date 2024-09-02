@@ -1,19 +1,48 @@
 import React, { useContext } from "react";
 import {
-  Image,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 
 import { CategoryContext } from "../../Contexts/CategoryContext";
+import { styles } from "./styles";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../Constants/Colors";
+import { handleDeleteCategory, handleGetCategories } from "./actions";
+import Toast from "react-native-toast-message";
 
 export function Categories({ navigation }: any) {
-  const categories = useContext(CategoryContext);
+  const { categories, setCategories } = useContext(CategoryContext);
+
+  const fetchCategories = async () => {
+    const response = await handleGetCategories();
+
+    if (response) {
+      setCategories(response);
+    }
+  };
+
+  const handleRemoveCategory = async (category_id: string) => {
+    const response = await handleDeleteCategory(category_id);
+
+    if (!response.ok) {
+      Toast.show({
+        type: "error",
+        text1: response.message,
+      });
+      return;
+    }
+
+    Toast.show({
+      type: "success",
+      text1: response.message,
+    });
+
+    await fetchCategories();
+  };
 
   return (
     <>
@@ -23,35 +52,46 @@ export function Categories({ navigation }: any) {
           categories.length ? {} : styles.centerContainer,
         ]}
       >
-        {categories.length ? (
-          <ScrollView>
-            <View style={styles.innerContainer}>
-              <View style={styles.tableRegisters}>
-                {categories.map((category, index) => {
-                  return (
-                    <>
-                      <View key={category._id} style={styles.tableRow}>
-                        <Text
-                          style={[
-                            styles.tableCell,
-                            styles.bold,
-                            styles.tableTitle,
-                          ]}
-                        >
-                          {category.name}
-                        </Text>
-                        <Text style={[styles.tableCell, styles.tableText]}>
+        <ScrollView>
+          {categories.length ? (
+            <>
+              <View style={styles.buttonsContainer}>
+                <TouchableOpacity
+                  style={styles.buttonTransaction}
+                  onPress={() => navigation.navigate("CategoriesForms")}
+                >
+                  <Text style={styles.buttonTextTable}>
+                    Adicionar Categoria
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.innerContainer}>
+                <View style={styles.tableRegisters}>
+                  {categories.map((category) => (
+                    <View key={category._id} style={styles.tableRow}>
+                      <View style={styles.categoryInfo}>
+                        <Text style={styles.tableTitle}>{category.name}</Text>
+                        <Text style={styles.tableText}>
                           {category.description}
                         </Text>
                       </View>
-                    </>
-                  );
-                })}
+
+                      <TouchableOpacity
+                        style={styles.buttonRemove}
+                        onPress={() => handleRemoveCategory(category._id)}
+                      >
+                        <Icon
+                          name="trash-can-outline"
+                          size={20}
+                          color={colors.gray[200]}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </View>
               </View>
-            </View>
-          </ScrollView>
-        ) : (
-          <ScrollView>
+            </>
+          ) : (
             <View style={styles.innerContainer}>
               <Text style={styles.title}>
                 📂 Organize suas Finanças com Categorias
@@ -81,102 +121,9 @@ export function Categories({ navigation }: any) {
                 <Text style={styles.buttonText}> Começar</Text>
               </TouchableOpacity>
             </View>
-          </ScrollView>
-        )}
+          )}
+        </ScrollView>
       </SafeAreaView>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  CategoryContainer: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: colors.gray[700],
-  },
-  innerContainer: {
-    padding: 20,
-    alignItems: "center",
-    margin: 20,
-    borderRadius: 12,
-    backgroundColor: colors.gray[600],
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
-    color: colors.gray[200],
-  },
-  text: {
-    fontSize: 16,
-    marginBottom: 20,
-    textAlign: "center",
-    color: colors.gray[200],
-  },
-  centerContainer: {
-    justifyContent: "center",
-  },
-  buttonStart: {
-    width: 200,
-    height: 40,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    backgroundColor: colors.gray[800],
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: colors.gray[200],
-    fontSize: 14,
-    fontWeight: "bold",
-    textTransform: "uppercase",
-  },
-  tableRegisters: {
-    display: "flex",
-    flexDirection: "column",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-    gap: 5,
-  },
-  tableRow: {
-    flexDirection: "column",
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    alignItems: "flex-start",
-    borderColor: colors.gray[200],
-    borderRadius: 8,
-  },
-  tableTitle: {
-    fontSize: 20,
-  },
-  tableText: {
-    fontSize: 16,
-  },
-  tableCell: {
-    flex: 1,
-    padding: 5,
-    textTransform: "capitalize",
-    fontWeight: "500",
-    color: colors.gray[200],
-  },
-  icons: {
-    width: 20,
-    height: 20,
-    color: "#000",
-  },
-  buttons: {
-    display: "flex",
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 8,
-  },
-  bold: {
-    fontWeight: "600",
-  },
-});

@@ -13,11 +13,13 @@ import { Picker } from "@react-native-picker/picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { colors } from "../../Constants/Colors";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { formatCurrency } from "../../Utils/convertValueToReal";
 import { ICategory } from "../Categories/props";
 import { handleCreateCategory } from "./actions";
 import Toast from "react-native-toast-message";
+import { CategoryContext } from "../../Contexts/CategoryContext";
+import { handleGetCategories } from "../Categories/actions";
 
 //Zod
 const CategoySchema = z.object({
@@ -33,7 +35,16 @@ const CategoySchema = z.object({
 type CategoryValues = z.infer<typeof CategoySchema>;
 
 export function CategoryForms({ navigation }: any) {
-  const [billValue, setBillValue] = useState<string>("");
+  const [categoryValue, setCategoryValue] = useState<string>("");
+  const { setCategories } = useContext(CategoryContext);
+
+  const fetchCategories = async () => {
+    const response = await handleGetCategories();
+
+    if (response) {
+      setCategories(response);
+    }
+  };
 
   const {
     control,
@@ -51,7 +62,6 @@ export function CategoryForms({ navigation }: any) {
 
   // Functions
   const onSubmit = async (data: ICategory) => {
-    console.log(data);
     const createCategory = await handleCreateCategory(data);
 
     if (!createCategory) {
@@ -61,6 +71,8 @@ export function CategoryForms({ navigation }: any) {
       });
       return;
     }
+
+    await fetchCategories();
 
     Toast.show({
       type: "success",
@@ -78,10 +90,10 @@ export function CategoryForms({ navigation }: any) {
 
   // Budget
   const handleBlur = (onChange: (value: string) => void) => {
-    const formattedText = billValue.replace(",", ".");
+    const formattedText = categoryValue.replace(",", ".");
     const numberValue = parseFloat(formattedText);
     const valueFormated = formatCurrency(numberValue);
-    setBillValue(formatCurrency(numberValue));
+    setCategoryValue(formatCurrency(numberValue));
     onChange(formattedText);
   };
 
@@ -164,9 +176,9 @@ export function CategoryForms({ navigation }: any) {
               <TextInput
                 onBlur={() => handleBlur(onChange)}
                 onChangeText={(text) =>
-                  setBillValue(text.replace(/[^0-9.,]/g, ""))
+                  setCategoryValue(text.replace(/[^0-9.,]/g, ""))
                 }
-                value={billValue}
+                value={categoryValue}
                 keyboardType="numeric"
                 style={styles.input}
               />

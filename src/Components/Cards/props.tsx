@@ -7,10 +7,10 @@ export interface ICards {
 }
 
 export interface IBills {
-  _id: string;
+  _id?: string;
   bill_name: string;
   bill_category: string;
-  bill_type: 'Income' | 'Expenses';
+  bill_type: "Income" | "Expenses";
   buy_date: string;
   payment_type: string;
   bill_value: number;

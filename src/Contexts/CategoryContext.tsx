@@ -7,7 +7,15 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const CategoryContext = createContext<ICategory[]>({} as ICategory[]);
+interface CategoriesContextType {
+  categories: ICategory[];
+  setCategories: React.Dispatch<React.SetStateAction<ICategory[]>>;
+}
+
+export const CategoryContext = createContext<CategoriesContextType>({
+  categories: [],
+  setCategories: () => {},
+});
 
 export const CategoriesProvider: React.FC<AuthProviderProps> = ({
   children,
@@ -27,7 +35,7 @@ export const CategoriesProvider: React.FC<AuthProviderProps> = ({
   }, []);
 
   return (
-    <CategoryContext.Provider value={categories}>
+    <CategoryContext.Provider value={{ categories, setCategories }}>
       {children}
     </CategoryContext.Provider>
   );
