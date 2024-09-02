@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
     marginTop: 20,
     height: 120,
+    minHeight: 100,
     maxHeight: 150,
     zIndex: 20,
   },

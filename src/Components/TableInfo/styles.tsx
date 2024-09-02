@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderBottomWidth: 1,
+    justifyContent: "space-between",
     alignItems: "center",
     borderColor: colors.gray[500],
     borderRadius: 8,
@@ -33,11 +34,25 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 12,
     gap: 5,
   },
-  tableCell: {
-    flex: 1,
-    padding: 5,
+  titleCards: {
+    display: "flex",
+    gap: 7,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  textCell: {
+    fontSize: 18,
     textTransform: "capitalize",
     fontWeight: "500",
+  },
+  textDate: {
+    fontSize: 12,
+  },
+  valuesContainer: {
+    display: "flex",
+    gap: 5,
+    flexDirection: "row",
+    alignItems: "center",
   },
   buttons: {
     display: "flex",
@@ -56,14 +71,19 @@ export const styles = StyleSheet.create({
   bold: {
     fontWeight: "600",
   },
+
+  buttonsContainer: {
+    margin: 10,
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
   buttonTransaction: {
     height: 40,
     paddingHorizontal: 16,
     paddingVertical: 10,
     backgroundColor: colors.gray[500],
     width: 150,
-    marginLeft: 10,
-    marginBottom: 10,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

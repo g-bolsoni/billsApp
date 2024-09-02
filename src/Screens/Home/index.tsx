@@ -25,9 +25,7 @@ export function Home({ navigation }: any) {
       {bills.length ? (
         <>
           <Cards />
-          <ScrollView>
-            <TableInfo navigation={navigation} />
-          </ScrollView>
+          <TableInfo navigation={navigation} />
         </>
       ) : (
         <>

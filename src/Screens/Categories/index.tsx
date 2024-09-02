@@ -30,7 +30,7 @@ export function Categories({ navigation }: any) {
                 {categories.map((category, index) => {
                   return (
                     <>
-                      <View key={index} style={styles.tableRow}>
+                      <View key={category._id} style={styles.tableRow}>
                         <Text
                           style={[
                             styles.tableCell,
