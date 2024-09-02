@@ -1,9 +1,8 @@
-import { ImageSourcePropType } from "react-native";
-
 export interface ICards {
   title: string;
-  imageSource: ImageSourcePropType;
+  imageSource: string;
   value: number;
+  color: string;
 }
 
 export interface IBills {

@@ -1,18 +1,15 @@
-import { fetchBillsData } from "../../Api/getBills";
 import { IBills } from "./props";
 
-
-export const handleTotalData = async () => {
-  const response = await fetchBillsData();
+export const handleTotalData = async (bills: IBills[]) => {
   let totalIncome = 0;
   let totalExpenses = 0;
   let total = 0;
 
-  response.map((item: IBills) => {
-    if(item.bill_type === 'Income'){
+  bills.map((item: IBills) => {
+    if (item.bill_type === "Income") {
       totalIncome += item.bill_value;
     }
-    if(item.bill_type === 'Expenses'){
+    if (item.bill_type === "Expenses") {
       totalExpenses += item.bill_value;
     }
   });
@@ -22,6 +19,6 @@ export const handleTotalData = async () => {
   return {
     totalIncome,
     totalExpenses,
-    total
-  }
-}
+    total,
+  };
+};

@@ -46,13 +46,12 @@ export function TableInfo({ navigation }: any) {
       return;
     }
 
+    await fetchBills();
+
     Toast.show({
       type: "success",
       text1: response.message,
     });
-
-    // Atualize a lista de contas diretamente do backend após a remoção
-    await fetchBills();
   };
 
   return (
@@ -68,7 +67,7 @@ export function TableInfo({ navigation }: any) {
       <ScrollView>
         <View style={styles.table}>
           <View style={styles.tableRegisters}>
-            {bills.map((item, index) => (
+            {bills.map((item) => (
               <View
                 key={item._id}
                 style={[

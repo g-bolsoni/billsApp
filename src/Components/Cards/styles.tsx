@@ -38,8 +38,4 @@ export const styles = StyleSheet.create({
     color: colors.gray[200],
     fontWeight: "bold",
   },
-  icon: {
-    width: 32,
-    height: 32,
-  },
 });
