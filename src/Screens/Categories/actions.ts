@@ -14,5 +14,5 @@ export const handleDeleteCategory = async (category_id: String) => {
     return { ok: false, message: response.data.message };
   }
 
-  return { ok: true, message: "Conta deletada!" };
+  return { ok: true, message: "Categoria deletada!" };
 };

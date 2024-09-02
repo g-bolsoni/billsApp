@@ -76,7 +76,7 @@ export function CategoryForms({ navigation }: any) {
 
     Toast.show({
       type: "success",
-      text1: "Conta adiconada!",
+      text1: "Categoria adiconada!",
       position: "top",
       topOffset: 40,
     });
