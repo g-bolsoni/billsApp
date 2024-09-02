@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 import { ICategory } from "../Screens/Categories/props";
 import { handleGetCategories } from "../Screens/Categories/actions";
@@ -20,17 +14,17 @@ export const CategoriesProvider: React.FC<AuthProviderProps> = ({
 }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
 
-  const fetchCategories = useCallback(async () => {
-    const response = await handleGetCategories();
-
-    if (response) {
-      setCategories(response);
-    }
-  }, []);
-
   useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await handleGetCategories();
+
+      if (response) {
+        setCategories(response);
+      }
+    };
+
     fetchCategories();
-  }, [fetchCategories]);
+  }, []);
 
   return (
     <CategoryContext.Provider value={categories}>

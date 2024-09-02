@@ -61,7 +61,6 @@ export function StackRoutes() {
                   },
                 }}
               />
-              <Screen name="Forms" component={Forms} />
               <Screen
                 name="Categories"
                 component={Categories}
@@ -81,6 +80,7 @@ export function StackRoutes() {
                   },
                 }}
               />
+              <Screen name="Forms" component={Forms} />
               <Screen name="CategoriesForms" component={CategoryForms} />
             </>
           ) : (

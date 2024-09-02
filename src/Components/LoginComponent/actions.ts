@@ -1,4 +1,4 @@
-import { fetchAuthLogin, getUserData } from "../../Api/loginUser";
+import { fetchAuthLogin, getUser } from "../../Api/loginUser";
 
 export const handleLogin = async (
   email: string,
@@ -12,12 +12,12 @@ export const handleLogin = async (
       console.error("Erro de autenticação:", message);
       return { ok: false, message: message };
     }
-    const userTokenData = JSON.parse(atob(Token.split(".")[1]));
-    const userId = userTokenData.id;
-    const userInfo = await getUserData({ Token, userId });
 
-    // Armazenar o token e logar o usuário
-    signIn({ token: Token, email: email, name: userInfo?.name });
+    // Get user name
+    const userInfo = await getUser(Token);
+
+    // Stores user data in the session and logs the user into the application
+    signIn({ token: Token, email: email, name: userInfo.name });
 
     return { ok: true, message: message };
   } catch (error) {

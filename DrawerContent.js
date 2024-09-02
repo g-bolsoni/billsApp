@@ -45,6 +45,7 @@ const DrawerItems = (props) => {
 function DrawerContent(props) {
   const navigation = useNavigation();
   const { signOut, user } = useAuth();
+
   const handleLogout = async () => {
     await signOut();
 
@@ -62,11 +63,9 @@ function DrawerContent(props) {
             <View style={styles.userInfoSection}>
               <View style={{ flexDirection: "row", marginTop: 15 }}>
                 <View style={{ marginLeft: 10, flexDirection: "column" }}>
-                  <Text style={styles.title}>
-                    {user?.name ? user.name : "--- Name ---"}
-                  </Text>
+                  <Text style={styles.title}>{user ? user.name : ""}</Text>
                   <Text style={styles.caption} numberOfLines={1}>
-                    {user?.email}
+                    {user ? user.email : ""}
                   </Text>
                 </View>
               </View>

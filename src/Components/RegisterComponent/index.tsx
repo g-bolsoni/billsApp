@@ -12,6 +12,7 @@ import { handleRegister } from "./actions";
 import { useAuth } from "../../Contexts/AuthContext";
 
 import logo from "../../../assets/logo.png";
+import Toast from "react-native-toast-message";
 
 const schemaForm = z
   .object({
@@ -60,20 +61,24 @@ export function RegisterComponent() {
     resolver: zodResolver(schemaForm),
   });
 
-  const onSubmit = async (data: {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
-    await handleRegister(
-      data.name,
-      data.email,
-      data.password,
-      data.confirmPassword,
-      signIn,
-      navigation
-    );
+  const onSubmit = async (data: IUser) => {
+    const { ok, message } = await handleRegister(data, signIn);
+
+    if (ok) {
+      Toast.show({
+        type: "success",
+        text1: "Login efetuado com sucesso!",
+      });
+
+      // Navigate to Home
+      navigation.navigate("Home");
+      return;
+    }
+
+    Toast.show({
+      type: "error",
+      text1: "Ops!, verifique suas credencias.",
+    });
   };
 
   return (

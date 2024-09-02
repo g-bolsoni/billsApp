@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { IBills } from "../Components/Cards/props";
 import { handleGetBills } from "../Components/TableInfo/actions";
 
@@ -25,15 +19,15 @@ export const BillsContext = createContext<BillsContextType>({
 export const BillsProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [bills, setBills] = useState<IBills[]>([]);
 
-  const fetchBills = async () => {
-    const response = await handleGetBills();
-
-    if (response) {
-      setBills(response);
-    }
-  };
-
   useEffect(() => {
+    const fetchBills = async () => {
+      const response = await handleGetBills();
+
+      if (response) {
+        setBills(response);
+      }
+    };
+
     fetchBills();
   }, []);
 

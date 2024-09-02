@@ -35,7 +35,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const storagedToken = await AsyncStorage.getItem("@App:token");
 
         if (storagedUser && storagedToken) {
-          setUser({ email: storagedUser, token: storagedToken });
+          const userInfo = JSON.parse(storagedUser);
+
+          setUser({
+            email: userInfo.email,
+            name: userInfo.name,
+            token: storagedToken,
+          });
         }
       } catch (error) {
         console.error(
@@ -45,15 +51,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     };
 
+    // john@example.com
+    // password123
     loadStorageData();
   }, []);
 
   const signIn = async (userData: UserData) => {
     setUser(userData);
 
-    await AsyncStorage.setItem("@App:user", userData.email);
-    await AsyncStorage.setItem("@App:userName", userData.name);
     await AsyncStorage.setItem("@App:token", userData.token);
+    await AsyncStorage.setItem(
+      "@App:user",
+      JSON.stringify({
+        email: userData.email,
+        name: userData.name,
+      })
+    );
   };
 
   const signOut = async () => {

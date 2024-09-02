@@ -57,11 +57,9 @@ export function LoginComponent() {
         type: "success",
         text1: "Login efetuado com sucesso!",
       });
-      // Navegar para a Home
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Home" }],
-      });
+
+      // Navigate to Home
+      navigation.navigate("Home");
       return;
     }
 
