@@ -35,9 +35,30 @@ const CategoySchema = z.object({
 type CategoryValues = z.infer<typeof CategoySchema>;
 
 export function CategoryForms({ navigation }: any) {
+  // Contexts
   const [categoryValue, setCategoryValue] = useState<string>("");
   const { setCategories } = useContext(CategoryContext);
 
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<CategoryValues>({
+    resolver: zodResolver(CategoySchema),
+    defaultValues: {
+      budget: "",
+      category_type: "Income",
+      isActive: true,
+      color: "#FF5733",
+      icon: "fa-utensils",
+    },
+  });
+
+  // States
+  const category_type = watch("category_type");
+
+  // Functions
   const fetchCategories = async () => {
     const response = await handleGetCategories();
 
@@ -46,21 +67,6 @@ export function CategoryForms({ navigation }: any) {
     }
   };
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CategoryValues>({
-    resolver: zodResolver(CategoySchema),
-    defaultValues: {
-      category_type: "Income",
-      isActive: true,
-      color: "#FF5733",
-      icon: "fa-utensils",
-    },
-  });
-
-  // Functions
   const onSubmit = async (data: ICategory) => {
     const createCategory = await handleCreateCategory(data);
 
@@ -167,29 +173,31 @@ export function CategoryForms({ navigation }: any) {
         </View>
 
         {/* Budget => Define um orçamento maximo */}
-        <View style={styles.formItem}>
-          <Text style={styles.texts}>Orçamento</Text>
-          <Controller
-            control={control}
-            name="budget"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onBlur={() => handleBlur(onChange)}
-                onChangeText={(text) =>
-                  setCategoryValue(text.replace(/[^0-9.,]/g, ""))
-                }
-                value={categoryValue}
-                keyboardType="numeric"
-                style={styles.input}
-              />
+        {category_type == "Expenses" && (
+          <View style={styles.formItem}>
+            <Text style={styles.texts}>Orçamento</Text>
+            <Controller
+              control={control}
+              name="budget"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={() => handleBlur(onChange)}
+                  onChangeText={(text) =>
+                    setCategoryValue(text.replace(/[^0-9.,]/g, ""))
+                  }
+                  value={categoryValue}
+                  keyboardType="numeric"
+                  style={styles.input}
+                />
+              )}
+            />
+            {errors.budget && (
+              <Text style={styles.error}>
+                {errors.budget.message?.toString()}
+              </Text>
             )}
-          />
-          {errors.budget && (
-            <Text style={styles.error}>
-              {errors.budget.message?.toString()}
-            </Text>
-          )}
-        </View>
+          </View>
+        )}
 
         {/* Botões */}
         <View style={styles.buttonsContainer}>
