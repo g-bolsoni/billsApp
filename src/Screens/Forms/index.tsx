@@ -17,7 +17,7 @@ import { Picker } from "@react-native-picker/picker";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { formatCurrency } from "../../Utils/convertValueToReal";
 
 import { IBills } from "./props";
@@ -25,10 +25,11 @@ import { handleCreateBill } from "./actions";
 import Toast from "react-native-toast-message";
 import { handleGetBills } from "../../Components/TableInfo/actions";
 import { BillsContext } from "../../Contexts/BillsContext";
+import { CategoryContext } from "../../Contexts/CategoryContext";
 
 const billSchema = z.object({
-  bill_name: z.string().min(1, "Bill name is required"),
-  bill_category: z.string(),
+  bill_name: z.string().min(1, "Por favor, insira um nome."),
+  bill_category: z.string().min(1, "Por favor, selecione uma categoria."),
   bill_type: z.enum(["Income", "Expenses"]),
   buy_date: z.string(),
   payment_type: z.string(),
@@ -51,6 +52,7 @@ export function Forms({ navigation }: any) {
     resolver: zodResolver(billSchema),
     defaultValues: {
       bill_type: "Income",
+      bill_category: "",
       fixed: false,
       repeat: false,
       installments: "",
@@ -59,13 +61,37 @@ export function Forms({ navigation }: any) {
     },
   });
 
-  const { bills, setBills } = useContext(BillsContext);
+  // Contexts
+  const { setBills } = useContext(BillsContext);
+  const { categories } = useContext(CategoryContext);
+
+  // States
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [billValue, setBillValue] = useState<string>("");
 
   const repeatValue = watch("repeat");
   const bill_type = watch("bill_type");
+
+  const categoriesPickerArray = categories.filter((category) => {
+    return bill_type === category.category_type;
+  });
+
+  // Functions
+  useEffect(() => {
+    if (categories.length) {
+      const defaultCategory = categories.find(
+        (category) => category.category_type === bill_type
+      );
+
+      if (!defaultCategory) {
+        setValue("bill_category", "");
+        return;
+      }
+
+      setValue("bill_category", defaultCategory.name);
+    }
+  }, [bill_type, categories, setValue]);
 
   const onSubmit = async (data: IBills) => {
     const createBill = await handleCreateBill(data);
@@ -177,18 +203,30 @@ export function Forms({ navigation }: any) {
             )}
           </View>
           {/* bill_category => Categoria */}
+
           <View>
             <Text style={styles.texts}>Categoria</Text>
             <Controller
               control={control}
               name="bill_category"
               render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
+                <Picker
+                  selectedValue={value}
+                  onValueChange={(itemValue) => onChange(itemValue)}
                   style={styles.input}
-                />
+                >
+                  {categoriesPickerArray.length > 0 ? (
+                    categoriesPickerArray.map((category) => (
+                      <Picker.Item
+                        key={category._id}
+                        label={category.name}
+                        value={category.name}
+                      />
+                    ))
+                  ) : (
+                    <Picker.Item label="Categoria não encontrada" value="" />
+                  )}
+                </Picker>
               )}
             />
             {errors.bill_category && (

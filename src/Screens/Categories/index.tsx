@@ -92,7 +92,12 @@ export function Categories({ navigation }: any) {
               </View>
             </>
           ) : (
-            <View style={styles.innerContainer}>
+            <View
+              style={[
+                styles.innerContainer,
+                { alignItems: "center", backgroundColor: colors.gray[600] },
+              ]}
+            >
               <Text style={styles.title}>
                 📂 Organize suas Finanças com Categorias
               </Text>
