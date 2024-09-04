@@ -19,7 +19,9 @@ interface UserData {
   token: string;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+export const AuthContext = createContext<AuthContextData>(
+  {} as AuthContextData
+);
 
 interface AuthProviderProps {
   children: ReactNode;

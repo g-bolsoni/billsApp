@@ -8,6 +8,7 @@ import { Home } from "../Screens/Home";
 import { Forms } from "../Screens/Forms";
 import { Login } from "../Screens/Login";
 import { Categories } from "../Screens/Categories";
+import { Profile } from "../Screens/Profile";
 import { CategoryForms } from "../Screens/CategoriesForms";
 import { Register } from "../Screens/Register";
 import { useAuth } from "../Contexts/AuthContext";
@@ -64,6 +65,25 @@ export function StackRoutes() {
               <Screen
                 name="Categories"
                 component={Categories}
+                options={{
+                  headerLeft: () => {
+                    return (
+                      <Icon
+                        name="menu"
+                        style={{ marginStart: 20 }}
+                        onPress={() =>
+                          navigation.dispatch(DrawerActions.openDrawer())
+                        }
+                        size={30}
+                        color="#fff"
+                      />
+                    );
+                  },
+                }}
+              />
+              <Screen
+                name="Profile"
+                component={Profile}
                 options={{
                   headerLeft: () => {
                     return (

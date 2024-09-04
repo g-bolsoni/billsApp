@@ -13,7 +13,7 @@ const DrawerList = [
     label: "Categorias",
     navigateTo: "Categories",
   },
-  { icon: "account-multiple", label: "Profile", navigateTo: "Profile" },
+  { icon: "account-multiple", label: "Configurações", navigateTo: "Profile" },
 ];
 
 const DrawerLayout = ({ icon, label, navigateTo }) => {
@@ -82,7 +82,7 @@ function DrawerContent(props) {
           icon={({ color, size }) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
-          label="Sign Out"
+          label="Deslogar"
         />
       </View>
     </View>
