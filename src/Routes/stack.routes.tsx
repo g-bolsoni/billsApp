@@ -16,6 +16,7 @@ import { RootStackParamList } from "../../navigation";
 import { BillsProvider } from "../Contexts/BillsContext";
 import { CategoriesProvider } from "../Contexts/CategoryContext";
 import { colors } from "../Constants/Colors";
+import { EditProfile } from "../Screens/EditProfile";
 
 const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
@@ -102,6 +103,7 @@ export function StackRoutes() {
               />
               <Screen name="Forms" component={Forms} />
               <Screen name="CategoriesForms" component={CategoryForms} />
+              <Screen name="EditProfile" component={EditProfile} />
             </>
           ) : (
             <>

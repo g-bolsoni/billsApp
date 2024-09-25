@@ -7,8 +7,15 @@ import React, {
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+interface IUser {
+  name: string;
+  email: string;
+  token: string;
+}
+
 interface AuthContextData {
-  user: any;
+  user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   signIn: (userData: any) => void;
   signOut: () => void;
 }
@@ -53,8 +60,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     };
 
-    // john@example.com
-    // password123
     loadStorageData();
   }, []);
 
@@ -78,7 +83,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut }}>
+    <AuthContext.Provider value={{ setUser, user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

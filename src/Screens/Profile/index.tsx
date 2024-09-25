@@ -8,16 +8,23 @@ import {
 } from "react-native";
 import { styles } from "./styles";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { useNavigation, DrawerActions } from "@react-navigation/native";
+import {
+  useNavigation,
+  DrawerActions,
+  NavigationProp,
+} from "@react-navigation/native";
+import { RootStackParamList } from "../../../navigation";
 
-export function Profile({ navigation }: any) {
+export function Profile() {
   const { signOut, user } = useContext(AuthContext);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   // Functions
   const handleLogout = async () => {
     await signOut();
-
     navigation.dispatch(DrawerActions.closeDrawer());
+
+    // navigation.navigate("Login");
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }],
@@ -39,7 +46,7 @@ export function Profile({ navigation }: any) {
                   paddingHorizontal: 10,
                 }}
               >
-                <Text style={styles.textName}>{user.name},</Text>
+                <Text style={styles.textName}>{user?.name},</Text>
                 <Text style={styles.text}> aqui estão seus dados</Text>
               </View>
               <Text style={[styles.smalText, { paddingHorizontal: 10 }]}>
@@ -51,7 +58,7 @@ export function Profile({ navigation }: any) {
             <View style={styles.inputGroupContainer}>
               <TouchableOpacity
                 style={styles.buttonEdit}
-                onPress={() => console.log("Editar")}
+                onPress={() => navigation.navigate("EditProfile")}
               >
                 <Text
                   style={{
@@ -74,7 +81,8 @@ export function Profile({ navigation }: any) {
                 <TextInput
                   style={styles.inputText}
                   aria-label="input"
-                  value={user.name}
+                  editable={false}
+                  value={user?.name}
                   aria-labelledby="labelUsername"
                 />
               </View>
@@ -90,7 +98,7 @@ export function Profile({ navigation }: any) {
                 <TextInput
                   style={styles.inputText}
                   aria-label="input"
-                  value={user.email}
+                  value={user?.email}
                   editable={false}
                   selectTextOnFocus={false}
                   aria-labelledby="labelEmail"
