@@ -11,6 +11,8 @@ import { styles } from "./styles";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation";
+import { handleUpdateUser } from "./actions";
+import Toast from "react-native-toast-message";
 
 export function EditProfile() {
   const { user, setUser } = useContext(AuthContext);
@@ -18,13 +20,30 @@ export function EditProfile() {
 
   const [newName, setNewName] = useState(user.name);
 
-  const editProfileInfo = () => {
+  const editProfileInfo = async () => {
+    const data = { name: newName };
+    const updateUser = await handleUpdateUser(data);
+
+    if (!updateUser.ok) {
+      Toast.show({
+        type: "error",
+        text1: updateUser.message,
+      });
+      return;
+    }
+
     setUser({
       email: user.email,
       name: newName,
       token: user.token,
     });
+
     navigation.navigate("Profile");
+
+    Toast.show({
+      type: "success",
+      text1: updateUser.message,
+    });
   };
 
   // Functions
