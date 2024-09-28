@@ -6,11 +6,6 @@ interface LoginResponse {
   message: string;
 }
 
-interface UserDataId {
-  Token: string;
-  userId: string;
-}
-
 export const fetchAuthLogin = async (
   email: string,
   password: string
@@ -18,16 +13,6 @@ export const fetchAuthLogin = async (
   const response = await axios.post(`${BASE_URL}/auth/login`, {
     email,
     password,
-  });
-
-  return response.data;
-};
-
-export const getUserData = async ({ Token, userId }: UserDataId) => {
-  const response = await axios.get(`${BASE_URL}/user/${userId}`, {
-    headers: {
-      Authorization: `${Token}`,
-    },
   });
 
   return response.data;
