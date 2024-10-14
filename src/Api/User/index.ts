@@ -19,3 +19,19 @@ export const updateUser = async (data: IUpdateUser) => {
 
   return response;
 };
+
+export const deleteUser = async () => {
+  const token = await AsyncStorage.getItem("@App:token");
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const response = await axios.delete(`${BASE_URL}/user`, {
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+
+  return response;
+};

@@ -14,6 +14,8 @@ import {
   NavigationProp,
 } from "@react-navigation/native";
 import { RootStackParamList } from "../../../navigation";
+import { handleUpdateUser } from "./actions";
+import Toast from "react-native-toast-message";
 
 export function Profile() {
   const { signOut, user } = useContext(AuthContext);
@@ -28,6 +30,28 @@ export function Profile() {
     navigation.reset({
       index: 0,
       routes: [{ name: "Login" }],
+    });
+  };
+
+  const handleDeleteAccount = async () => {
+    const deleteUer = await handleUpdateUser();
+
+    await signOut();
+    navigation.navigate("Login");
+
+    console.log(deleteUer);
+
+    if (!deleteUer.ok) {
+      Toast.show({
+        type: "error",
+        text1: deleteUer.message,
+      });
+      return;
+    }
+
+    Toast.show({
+      type: "success",
+      text1: deleteUer.message,
     });
   };
 
@@ -127,7 +151,7 @@ export function Profile() {
                 abaixo.
               </Text>
 
-              <TouchableOpacity onPress={() => console.log("delete account")}>
+              <TouchableOpacity onPress={() => handleDeleteAccount()}>
                 <Text style={styles.deleteAccountText}>
                   EXCLUIR MINHA CONTA
                 </Text>
