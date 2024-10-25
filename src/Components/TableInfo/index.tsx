@@ -30,6 +30,7 @@ export function TableInfo({ navigation }: any) {
   const handleConvertDate = (item: IBills) => {
     const date = new Date(item.buy_date);
     const dateFormated = new Intl.DateTimeFormat("pt-BR", {
+      timeZone: "UTC",
       day: "2-digit",
       month: "2-digit",
     }).format(date);

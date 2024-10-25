@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   StyleSheet,
   ScrollView,
@@ -8,15 +9,67 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { IBills } from "../Forms/props";
+import { Cards } from "../../Components/Cards";
 import { colors } from "../../Constants/Colors";
+import { handleUpdateMonthlyBills } from "./actions";
 import { TableInfo } from "../../Components/TableInfo";
 import { BillsContext } from "../../Contexts/BillsContext";
-import { Cards } from "../../Components/Cards";
 import { CategoryContext } from "../../Contexts/CategoryContext";
 
 export function Home({ navigation }: any) {
-  const { bills } = useContext(BillsContext);
+  const { bills, setBills } = useContext(BillsContext);
   const { categories } = useContext(CategoryContext);
+
+  const checkFirstDayOfMonth = async () => {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
+    // Unic key for each month/year
+    const key = `executed-${month}-${year}`;
+
+    // Checks if the function has already been executed
+    const alreadyExecuted = await AsyncStorage.getItem(key);
+
+    // await AsyncStorage.removeItem(key); //Remove for keys, only test
+
+    if (day === 25 && !alreadyExecuted) {
+      // Mark as executed
+      await AsyncStorage.setItem(key, "true");
+
+      // Execute the function
+      const createdBills = await handleUpdateMonthlyBills();
+
+      const formattedBills: IBills[] = createdBills.map((bill: any) => ({
+        bill_name: bill.bill_name,
+        bill_category: bill.bill_category,
+        bill_type: bill.bill_type,
+        buy_date: bill.buy_date,
+        payment_type: bill.payment_type,
+        bill_value: bill.bill_value,
+        repeat: bill.repeat,
+        installments: bill.installments,
+        fixed: bill.fixed,
+        _id: bill._id,
+      }));
+
+      setBills((prevBills) => [...prevBills, ...formattedBills]);
+    }
+  };
+
+  useEffect(() => {
+    checkFirstDayOfMonth();
+
+    // Check every 24 hours
+    const interval = setInterval(() => {
+      checkFirstDayOfMonth();
+    }, 86400000); // 24 hours in milliseconds
+
+    // Clears the range when the component is unmounted
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <SafeAreaView
