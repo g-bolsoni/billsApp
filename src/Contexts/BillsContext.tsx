@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { IBills } from "../Components/Cards/props";
 import { handleGetBills } from "../Components/TableInfo/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -18,9 +19,10 @@ export const BillsContext = createContext<BillsContextType>({
 
 export const BillsProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [bills, setBills] = useState<IBills[]>([]);
-
   useEffect(() => {
     const fetchBills = async () => {
+      await AsyncStorage.getItem("@App:token");
+
       const response = await handleGetBills();
 
       if (response) {

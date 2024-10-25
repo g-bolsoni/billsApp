@@ -39,8 +39,6 @@ export function Profile() {
     await signOut();
     navigation.navigate("Login");
 
-    console.log(deleteUer);
-
     if (!deleteUer.ok) {
       Toast.show({
         type: "error",
