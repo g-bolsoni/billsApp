@@ -18,6 +18,7 @@ import { CategoriesProvider } from "../Contexts/CategoryContext";
 import { colors } from "../Constants/Colors";
 import { EditProfile } from "../Screens/EditProfile";
 import React from "react";
+import { ForgotPassword } from "../Screens/ForgotPassword";
 
 const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
@@ -132,6 +133,11 @@ export function StackRoutes() {
           <Screen
             name="Register"
             component={Register}
+            options={{ headerShown: false }}
+          />
+          <Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
             options={{ headerShown: false }}
           />
         </Navigator>

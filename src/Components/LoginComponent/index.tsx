@@ -122,6 +122,10 @@ export function LoginComponent() {
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
+          <Text style={styles.link}>Esqueceu a senha?</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <Text style={styles.link}>Não possui cadastro?</Text>
         </TouchableOpacity>
