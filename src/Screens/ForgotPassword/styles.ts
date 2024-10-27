@@ -75,6 +75,7 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 10,
     alignItems: "center",
+    width: "100%",
   },
   button: {
     backgroundColor: colors.green[400],
@@ -83,6 +84,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
+    width: "80%",
   },
   buttonText: {
     color: colors.gray[200],
@@ -90,7 +92,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
   },
   link: {
-    color: "#3B82F6",
+    color: colors.blue[500],
     textDecorationLine: "underline",
   },
 });

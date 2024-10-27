@@ -13,6 +13,7 @@ import { handleLogin } from "./actions";
 import logo from "../../../assets/logo.png";
 import Toast from "react-native-toast-message";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { colors } from "../../Constants/Colors";
 
 const schemaForm = z.object({
   email: z
@@ -71,14 +72,14 @@ export function LoginComponent() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <View style={styles.logoSection}>
-            <Image source={logo} style={styles.logo} />
-            <Text style={styles.title}>Gb Money</Text>
-          </View>
+      <View style={styles.cardHeader}>
+        <View style={styles.logoSection}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Gb Money</Text>
         </View>
+      </View>
 
+      <View style={styles.card}>
         <View style={styles.formGroup}>
           <Text style={styles.label}>Email</Text>
           <TextInput
@@ -104,31 +105,32 @@ export function LoginComponent() {
               style={{ position: "absolute", top: "25%", right: 20 }}
               size={20}
               onPress={() => handleSeePassword()}
-              color="#000"
+              color={colors.gray[200]}
             />
           </View>
           {errors.password?.message && (
             <Text style={styles.error}>{errors.password.message}</Text>
           )}
         </View>
-      </View>
+        <View style={styles.actions}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleSubmit(onSubmit)}
+            disabled={Object.keys(errors).length > 0}
+          >
+            <Text style={styles.buttonText}>Entrar</Text>
+          </TouchableOpacity>
 
-      <View style={styles.actions}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSubmit(onSubmit)}
-          disabled={Object.keys(errors).length > 0}
-        >
-          <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ForgotPassword")}
+          >
+            <Text style={styles.link}>Esqueceu a senha?</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
-          <Text style={styles.link}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={styles.link}>Não possui cadastro?</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text style={styles.link}>Não possui cadastro?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

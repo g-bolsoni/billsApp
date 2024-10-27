@@ -83,14 +83,13 @@ export function RegisterComponent() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <View style={styles.logoSection}>
-            <Image source={logo} style={styles.logo} />
-            <Text style={styles.title}>Gb Money</Text>
-          </View>
+      <View style={styles.cardHeader}>
+        <View style={styles.logoSection}>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.title}>Gb Money</Text>
         </View>
-
+      </View>
+      <View style={styles.card}>
         <View style={styles.formGroup}>
           <Text style={styles.label}>Nome</Text>
           <TextInput
@@ -134,19 +133,19 @@ export function RegisterComponent() {
             <Text style={styles.error}>{errors.confirmPassword.message}</Text>
           )}
         </View>
-      </View>
 
-      <View style={styles.actions}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSubmit(onSubmit)}
-          disabled={Object.keys(errors).length > 0}
-        >
-          <Text style={styles.buttonText}>Cadastrar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.link}>Já possui cadastro?</Text>
-        </TouchableOpacity>
+        <View style={styles.actions}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleSubmit(onSubmit)}
+            disabled={Object.keys(errors).length > 0}
+          >
+            <Text style={styles.buttonText}>Cadastrar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.link}>Já possui cadastro?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
