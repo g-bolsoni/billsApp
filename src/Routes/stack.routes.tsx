@@ -14,11 +14,13 @@ import { Register } from "../Screens/Register";
 import { useAuth } from "../Contexts/AuthContext";
 import { RootStackParamList } from "../../navigation";
 import { BillsProvider } from "../Contexts/BillsContext";
+import { ForgotPasswordProvider } from "../Contexts/ForgotPassword";
 import { CategoriesProvider } from "../Contexts/CategoryContext";
 import { colors } from "../Constants/Colors";
 import { EditProfile } from "../Screens/EditProfile";
 import React from "react";
 import { ForgotPassword } from "../Screens/ForgotPassword";
+import { ResetPasswordConfirmation } from "../Screens/ResetPasswordConfirmation";
 
 const { Navigator, Screen } = createStackNavigator<RootStackParamList>();
 
@@ -110,37 +112,44 @@ export function StackRoutes() {
           </CategoriesProvider>
         </BillsProvider>
       ) : (
-        <Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: colors.gray[700],
-            },
-            headerTintColor: colors.gray[200],
-            headerTitleAlign: "left",
-            headerTitle: (props) => (
-              <View style={styles.logoSection}>
-                <Image source={logo} style={styles.logo} />
-                <Text style={styles.title}>Gb Money</Text>
-              </View>
-            ),
-          }}
-        >
-          <Screen
-            name="Login"
-            component={Login}
-            options={{ headerShown: false }}
-          />
-          <Screen
-            name="Register"
-            component={Register}
-            options={{ headerShown: false }}
-          />
-          <Screen
-            name="ForgotPassword"
-            component={ForgotPassword}
-            options={{ headerShown: false }}
-          />
-        </Navigator>
+        <ForgotPasswordProvider>
+          <Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: colors.gray[700],
+              },
+              headerTintColor: colors.gray[200],
+              headerTitleAlign: "left",
+              headerTitle: (props) => (
+                <View style={styles.logoSection}>
+                  <Image source={logo} style={styles.logo} />
+                  <Text style={styles.title}>Gb Money</Text>
+                </View>
+              ),
+            }}
+          >
+            <Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <Screen
+              name="Register"
+              component={Register}
+              options={{ headerShown: false }}
+            />
+            <Screen
+              name="ForgotPassword"
+              component={ForgotPassword}
+              options={{ headerShown: false }}
+            />
+            <Screen
+              name="ResetPasswordConfirmation"
+              component={ResetPasswordConfirmation}
+              options={{ headerShown: false }}
+            />
+          </Navigator>
+        </ForgotPasswordProvider>
       )}
     </>
   );

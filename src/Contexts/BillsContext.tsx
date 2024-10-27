@@ -19,6 +19,7 @@ export const BillsContext = createContext<BillsContextType>({
 
 export const BillsProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [bills, setBills] = useState<IBills[]>([]);
+
   useEffect(() => {
     const fetchBills = async () => {
       await AsyncStorage.getItem("@App:token");

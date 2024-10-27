@@ -1,4 +1,4 @@
 export const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "https://d718-191-54-53-188.ngrok-free.app"
-    : "https://d718-191-54-53-188.ngrok-free.app";
+    ? "https://108a-189-41-44-210.ngrok-free.app"
+    : "https://108a-189-41-44-210.ngrok-free.app";

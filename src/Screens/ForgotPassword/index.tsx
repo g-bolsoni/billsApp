@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -16,6 +16,9 @@ import { styles } from "./styles";
 import { RootStackParamList } from "../../../navigation";
 
 import logo from "../../../assets/logo.png";
+import { resetPassword } from "./actions";
+import { ForgotPasswordContext } from "../../Contexts/ForgotPassword";
+import Toast from "react-native-toast-message";
 
 const schemaForm = z.object({
   email: z
@@ -27,6 +30,7 @@ const schemaForm = z.object({
 type IForgotPassword = z.infer<typeof schemaForm>;
 
 export function ForgotPassword() {
+  const { setEmail } = useContext(ForgotPasswordContext);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const {
@@ -40,7 +44,19 @@ export function ForgotPassword() {
   });
 
   const onSubmit = async (data: IForgotPassword) => {
-    console.log(data);
+    const result = await resetPassword(data);
+
+
+    if (result.status != 200) {
+      Toast.show({
+        type: "error",
+        text1: "Ops, ocorreu um problema. Tente novamente!",
+      });
+      return;
+    }
+
+    setEmail(data.email);
+    navigation.navigate("ResetPasswordConfirmation");
   };
 
   return (
@@ -75,6 +91,7 @@ export function ForgotPassword() {
           <TouchableOpacity
             style={styles.button}
             onPress={handleSubmit(onSubmit)}
+            // onPress={() => navigation.navigate("ResetPasswordConfirmation")}
             disabled={Object.keys(errors).length > 0}
           >
             <Text style={styles.buttonText}>Resetar Senha</Text>
