@@ -38,8 +38,9 @@ export function LoginComponent() {
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
+    setError,
   } = useForm<IUser>({
     criteriaMode: "all",
     mode: "all",
@@ -47,27 +48,23 @@ export function LoginComponent() {
   });
 
   const onSubmit = async (data: IUser) => {
-    const { ok, message } = await handleLogin(
-      data.email,
-      data.password,
-      signIn
-    );
+    try {
+      const loginUser = await handleLogin(data.email, data.password, signIn);
 
-    if (ok) {
       Toast.show({
         type: "success",
-        text1: "Login efetuado com sucesso!",
+        text1: loginUser.message,
       });
 
       // Navigate to Home
       navigation.navigate("Home");
-      return;
-    }
+    } catch (error: any) {
+      const { field, message } = error.response.data;
 
-    Toast.show({
-      type: "error",
-      text1: "Ops!, verifique suas credencias.",
-    });
+      setError(field, {
+        message: message,
+      });
+    }
   };
 
   return (
@@ -113,12 +110,19 @@ export function LoginComponent() {
           )}
         </View>
         <View style={styles.actions}>
+          {errors.root?.message && (
+            <Text style={[styles.error, { textAlign: "center" }]}>
+              {errors.root.message}
+            </Text>
+          )}
           <TouchableOpacity
             style={styles.button}
             onPress={handleSubmit(onSubmit)}
-            disabled={Object.keys(errors).length > 0}
+            disabled={isSubmitting}
           >
-            <Text style={styles.buttonText}>Entrar</Text>
+            <Text style={styles.buttonText}>
+              {isSubmitting ? "Carregando ..." : "Entrar"}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity

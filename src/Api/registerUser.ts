@@ -2,6 +2,7 @@ import axios from 'axios';
 import { BASE_URL } from '../Constants/BaseUrlApi';
 
 interface RegisterResponse {
+  success: boolean;
   token: string;
   email: string;
 }

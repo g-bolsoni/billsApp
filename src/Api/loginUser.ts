@@ -4,6 +4,7 @@ import { BASE_URL } from "../Constants/BaseUrlApi";
 interface LoginResponse {
   Token: string;
   message: string;
+  success: boolean
 }
 
 export const fetchAuthLogin = async (

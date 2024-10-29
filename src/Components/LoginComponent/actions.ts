@@ -5,24 +5,14 @@ export const handleLogin = async (
   password: string,
   signIn: Function
 ) => {
-  try {
-    const { message, Token } = await fetchAuthLogin(email, password);
 
-    if (message !== "Auth token is valid") {
-      console.error("Erro de autenticação:", message);
-      return { ok: false, message: message };
-    }
+  const responseLogin = await fetchAuthLogin(email, password);
 
-    // Get user name
-    const userInfo = await getUser(Token);
+  // Get user name
+  const userInfo = await getUser(responseLogin.Token);
 
-    // Stores user data in the session and logs the user into the application
-    signIn({ token: Token, email: email, name: userInfo.name });
+  // Stores user data in the session and logs the user into the application
+  signIn({ token: responseLogin.Token, email: email, name: userInfo.name });
 
-    return { ok: true, message: message };
-  } catch (error) {
-    console.error("Erro ao fazer login:", error);
-
-    return { ok: false, message: "Tente novamente mais tarde!" };
-  }
+  return responseLogin;
 };

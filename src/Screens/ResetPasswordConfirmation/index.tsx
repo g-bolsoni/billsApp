@@ -54,6 +54,7 @@ export function ResetPasswordConfirmation() {
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    setError,
   } = useForm<IForgotPassword>({
     criteriaMode: "all",
     mode: "all",
@@ -66,22 +67,29 @@ export function ResetPasswordConfirmation() {
       email: email,
     };
 
-    const resetPasswordConfirm = await changePassword(resetPasswordConfirmData);
+    try {
+      const resetPasswordConfirm = await changePassword(
+        resetPasswordConfirmData
+      );
 
-    if (resetPasswordConfirm.status != 200) {
+      if (resetPasswordConfirm.status != 200) {
+        throw new Error(resetPasswordConfirm.data.message);
+      }
+
       Toast.show({
-        type: "error",
+        type: "success",
         text1: resetPasswordConfirm.data.message,
       });
+
+      setEmail("");
+      navigation.navigate("Login");
+    } catch (error: any) {
+      const { field, message } = error.response.data;
+
+      setError(field, {
+        message: message,
+      });
     }
-
-    Toast.show({
-      type: "success",
-      text1: resetPasswordConfirm.data.message,
-    });
-
-    setEmail("");
-    navigation.navigate("Login");
   };
 
   return (
@@ -134,6 +142,9 @@ export function ResetPasswordConfirmation() {
           )}
         </View>
         <View style={styles.actions}>
+          {errors.root?.message && (
+            <Text style={styles.error}>{errors.root.message}</Text>
+          )}
           <TouchableOpacity
             style={styles.button}
             onPress={handleSubmit(onSubmit)}

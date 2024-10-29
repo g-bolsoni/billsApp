@@ -13,6 +13,7 @@ import { useAuth } from "../../Contexts/AuthContext";
 
 import logo from "../../../assets/logo.png";
 import Toast from "react-native-toast-message";
+import { handleLogin } from "../LoginComponent/actions";
 
 const schemaForm = z
   .object({
@@ -53,8 +54,9 @@ export function RegisterComponent() {
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
+    setError,
   } = useForm<IUser>({
     criteriaMode: "all",
     mode: "all",
@@ -62,23 +64,27 @@ export function RegisterComponent() {
   });
 
   const onSubmit = async (data: IUser) => {
-    const { ok, message } = await handleRegister(data, signIn);
+    try {
+      const createUser = await handleRegister(data);
 
-    if (ok) {
-      Toast.show({
-        type: "success",
-        text1: "Login efetuado com sucesso!",
+      if (createUser.success) {
+        const loginUser = await handleLogin(data.email, data.password, signIn);
+
+        Toast.show({
+          type: "success",
+          text1: loginUser.message,
+        });
+
+        navigation.navigate("Home");
+      }
+    } catch (error: any) {
+      const { field, message } = error.response.data;
+      console.log(error.response.data);
+
+      setError(field, {
+        message: message,
       });
-
-      // Navigate to Home
-      navigation.navigate("Home");
-      return;
     }
-
-    Toast.show({
-      type: "error",
-      text1: "Ops!, verifique suas credencias.",
-    });
   };
 
   return (
@@ -135,12 +141,17 @@ export function RegisterComponent() {
         </View>
 
         <View style={styles.actions}>
+          {errors.root?.message && (
+            <Text style={styles.error}>{errors.root.message}</Text>
+          )}
           <TouchableOpacity
             style={styles.button}
             onPress={handleSubmit(onSubmit)}
-            disabled={Object.keys(errors).length > 0}
+            disabled={isSubmitting}
           >
-            <Text style={styles.buttonText}>Cadastrar</Text>
+            <Text style={styles.buttonText}>
+              {isSubmitting ? "Cadastrando ..." : "Cadastrar"}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text style={styles.link}>Já possui cadastro?</Text>
