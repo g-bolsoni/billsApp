@@ -35,8 +35,9 @@ export function ForgotPassword() {
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
+    setError,
   } = useForm<IForgotPassword>({
     criteriaMode: "all",
     mode: "all",
@@ -44,19 +45,21 @@ export function ForgotPassword() {
   });
 
   const onSubmit = async (data: IForgotPassword) => {
-    const result = await resetPassword(data);
+    try {
+      const result = await resetPassword(data);
 
+      if (result.status != 200) {
+        console.log(result.data);
+        throw new Error();
+      }
 
-    if (result.status != 200) {
-      Toast.show({
-        type: "error",
-        text1: "Ops, ocorreu um problema. Tente novamente!",
+      setEmail(data.email);
+      navigation.navigate("ResetPasswordConfirmation");
+    } catch (error: any) {
+      setError("email", {
+        message: error.response.data.message,
       });
-      return;
     }
-
-    setEmail(data.email);
-    navigation.navigate("ResetPasswordConfirmation");
   };
 
   return (
@@ -91,10 +94,11 @@ export function ForgotPassword() {
           <TouchableOpacity
             style={styles.button}
             onPress={handleSubmit(onSubmit)}
-            // onPress={() => navigation.navigate("ResetPasswordConfirmation")}
-            disabled={Object.keys(errors).length > 0}
+            disabled={isSubmitting}
           >
-            <Text style={styles.buttonText}>Resetar Senha</Text>
+            <Text style={styles.buttonText}>
+              {isSubmitting ? "Enviando email..." : "Resetar Senha"}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>

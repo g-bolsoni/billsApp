@@ -52,7 +52,7 @@ export function ResetPasswordConfirmation() {
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm<IForgotPassword>({
     criteriaMode: "all",
@@ -77,7 +77,7 @@ export function ResetPasswordConfirmation() {
 
     Toast.show({
       type: "success",
-      text1: resetPasswordConfirm.data.message
+      text1: resetPasswordConfirm.data.message,
     });
 
     setEmail("");
@@ -137,9 +137,11 @@ export function ResetPasswordConfirmation() {
           <TouchableOpacity
             style={styles.button}
             onPress={handleSubmit(onSubmit)}
-            disabled={Object.keys(errors).length > 0}
+            disabled={isSubmitting}
           >
-            <Text style={styles.buttonText}>Enviar</Text>
+            <Text style={styles.buttonText}>
+              {isSubmitting ? "Enviando ..." : "Enviar"}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
