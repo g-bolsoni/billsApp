@@ -25,7 +25,15 @@ export function Categories({ navigation }: any) {
     }
   };
 
-  const handleRemoveCategory = async (category_id: string) => {
+  const handleRemoveCategory = async (category_id: string | undefined) => {
+    if (!category_id) {
+      Toast.show({
+        type: "error",
+        text1: "Ops, tente novamente mais tarde!",
+      });
+      return;
+    }
+
     const response = await handleDeleteCategory(category_id);
 
     if (!response.ok) {

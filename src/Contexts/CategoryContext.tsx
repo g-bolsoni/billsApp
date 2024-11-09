@@ -2,6 +2,7 @@ import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 import { ICategory } from "../Screens/Categories/props";
 import { handleGetCategories } from "../Screens/Categories/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -24,6 +25,7 @@ export const CategoriesProvider: React.FC<AuthProviderProps> = ({
 
   useEffect(() => {
     const fetchCategories = async () => {
+      await AsyncStorage.getItem("@App:token");
       const response = await handleGetCategories();
 
       if (response) {

@@ -79,8 +79,6 @@ export function RegisterComponent() {
       }
     } catch (error: any) {
       const { field, message } = error.response.data;
-      console.log(error.response.data);
-
       setError(field, {
         message: message,
       });
