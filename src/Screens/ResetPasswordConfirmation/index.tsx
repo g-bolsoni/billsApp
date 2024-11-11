@@ -102,13 +102,6 @@ export function ResetPasswordConfirmation() {
       </View>
 
       <View style={styles.card}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Senha?</Text>
-          <Text style={[styles.label, { textAlign: "center" }]}>
-            Insira o seu e-mail abaixo para fazer a redefinição da sua senha
-          </Text>
-        </View>
-
         <View style={styles.formGroup}>
           <Text style={styles.label}>Código de Verificação </Text>
           <TextInput
@@ -151,7 +144,7 @@ export function ResetPasswordConfirmation() {
             disabled={isSubmitting}
           >
             <Text style={styles.buttonText}>
-              {isSubmitting ? "Enviando ..." : "Enviar"}
+              {isSubmitting ? "Redefinindo ..." : "Redifinir Senha"}
             </Text>
           </TouchableOpacity>
 

@@ -44,6 +44,12 @@ export function Cards() {
       contentContainerStyle={styles.cardsContent}
     >
       <Card
+        title="Saldo"
+        imageSource="dollar-sign"
+        value={total}
+        color={colors.gray[200]}
+      />
+      <Card
         title="Entradas"
         imageSource="arrow-up-circle"
         value={totalIncome}
@@ -54,12 +60,6 @@ export function Cards() {
         imageSource="arrow-down-circle"
         value={totalExpenses}
         color={colors.red[400]}
-      />
-      <Card
-        title="Total dos gastos"
-        imageSource="dollar-sign"
-        value={total}
-        color={colors.gray[200]}
       />
     </ScrollView>
   );
