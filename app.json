@@ -41,7 +41,13 @@
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
-      ]
-    ]
+      ],
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "15a0e982-f275-4fb1-b0d2-54c83b48188d"
+      }
+    }
   }
 }

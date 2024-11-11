@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
   },
   expenses: {
-    backgroundColor: colors.red[100],
+    backgroundColor: colors.red[300],
   },
   income: {
     backgroundColor: colors.green[200],

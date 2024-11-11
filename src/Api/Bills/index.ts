@@ -23,3 +23,21 @@ export const updateMonthlyBills = async () => {
 
   return response.data;
 };
+
+export const monthlyExpenses = async () => {
+  const token = await AsyncStorage.getItem("@App:token");
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const response = await axios.get(`${BASE_URL}/monthlyExpenses`, {
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+
+  if (response.status != 200) return [];
+
+  return response.data.data;
+};

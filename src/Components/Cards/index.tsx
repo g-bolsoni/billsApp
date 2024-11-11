@@ -53,7 +53,7 @@ export function Cards() {
         title="Saídas"
         imageSource="arrow-down-circle"
         value={totalExpenses}
-        color={colors.red[400]}
+        color={colors.red[600]}
       />
       <Card
         title="Total dos gastos"

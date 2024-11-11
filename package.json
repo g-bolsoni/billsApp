@@ -19,9 +19,11 @@
     "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.29",
+    "@shopify/react-native-skia": "^1.5.3",
     "axios": "^1.6.8",
     "babel-plugin-module-resolver": "^5.0.2",
     "expo": "~51.0.14",
+    "expo-font": "~12.0.10",
     "expo-local-authentication": "~14.0.1",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
@@ -35,6 +37,8 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.10",
+    "victory": "^37.3.1",
+    "victory-native": "^41.9.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

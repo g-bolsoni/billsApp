@@ -11,11 +11,13 @@ import {
 
 import { IBills } from "../Forms/props";
 import { Cards } from "../../Components/Cards";
+import { GraphsBars } from "../../Components/Graphs/Bar";
 import { colors } from "../../Constants/Colors";
 import { handleUpdateMonthlyBills } from "./actions";
 import { TableInfo } from "../../Components/TableInfo";
 import { BillsContext } from "../../Contexts/BillsContext";
 import { CategoryContext } from "../../Contexts/CategoryContext";
+import { MusicChart } from "../../Components/Graphs/BasicBar";
 
 export function Home({ navigation }: any) {
   const { bills, setBills } = useContext(BillsContext);
@@ -79,6 +81,7 @@ export function Home({ navigation }: any) {
         <>
           <Cards />
           <TableInfo navigation={navigation} />
+          <GraphsBars />
         </>
       ) : (
         <>
