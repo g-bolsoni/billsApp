@@ -1,63 +1,43 @@
 # TODOS
 
-## Navigation
-
-- [x] Alterar as rotas para drawer, mas somente quando o cliente estiver logado (https://reactnavigation.org/docs/drawer-based-navigation)
-- [x] Colocar a imagem do GBMoney invés dos textos
-
-## Categoria
-
-- [x] Fazer a página de categorias
-- [x] Fazer formulario para inserir uma categoria
-- [x] Montar a lista de categoria
-- [x] Página de boas vindas de categorias
-- [x] Excluir uma categoria
-- [x] Criar botão para criar categoria
-
-## Forms
-
-- [x] Vincular as categorias criadas no select
-
 ## Login
 
-- [x] Colocar o icone para ver a senha
-- [x] Salvar no storage o nome do cliente ao logar
-- [x] Ao logar e recarregar a tela, as informações do cliente eram perdidas
+- [] Allow user to log in with Google.
+- [] Implement two-factor authentication (2FA).
 
-## Bills
+## Register
 
-- [x] Rever função par apagar uma conta
-- [x] Atualizar a tabela em tempo real
+- [] Allow user to register with Google.
 
-# BUGS
+## Home
 
-- [x] No celular, ele não consegue resgatar a lista de contas
-- [x] Os card não estão com os valores das contas
-- [x] Ao remover uma conta, não atualiza os valores dos cards
-- [] Ao entrar no app, não está carregando as contas.
+- [] Add filters for the accounts table.
+- [] Create dynamic charts.
 
-# Profile
+## Category
 
-- [x] Acesso as informações do usuario logado.
-- [x] Criar nova tela para as informações do usuario
-- [x] Criar nova tela para editar as informações do usuario
-- [] Botão para deletar conta
+- [] Add user-selected icons for categories.
+- [] Enable category editing.
 
-- Loading
+## Profile
 
-- Verifica se existe contas criadas
-  -- apagar todas as contas
+- [] Add/Edit profile photo.
+- [] Change password.
 
-- Verifica se existe categorias criadas
-  -- apagar todas as categorias
+## System
 
-- Exclui o user.
+- [] Implement dark and light modes.
+- [] Enable data export to Google Sheets.
+- [] Implement an in-app feedback collection system.
 
-# Profile - Feature
+## Notifications
 
-- [] Deixar o usuario inserir a foto dele.
+- [] Add reminders for bill due dates.
+- [] Implement notifications for app updates and news.
+- [] Enable custom notifications for financial goals.
 
-# Feature
+## Reports
 
-- [] Trazer todas as contas fixas quando virar o mês
-- [] Fazer funcionalidade de recuperar senha.
+- [] Create a dashboard with monthly reports.
+- [] Show spending insights (e.g., average weekly expenses).
+- [] Add alerts for unusual spending.
