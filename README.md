@@ -10,7 +10,7 @@
 - **Cadastro de Categorias:** Crie categorias personalizadas para organizar melhor suas finanças.
 - **Interface Intuitiva:** Design simples e direto, pensado para facilitar o controle financeiro, mesmo para iniciantes.
 
-## Capturas de Tela do aplicativo
+## Capturas de Tela do plicativo
 
 ![GBMoney Tela Inicial](./assets/tela-inicial.png)
 
@@ -19,8 +19,6 @@ Gerencie suas transações com facilidade na tela inicial do GBMoney.
 ![GBMoney Nova Transação](./assets/nova-transacao.png)
 
 Adicione novas transações rapidamente com uma interface otimizada para o mobile.
-
-![GBMoney Contas Fixas](./assets/contas-fixas.png)
 
 ## Próximas Funcionalidades
 
