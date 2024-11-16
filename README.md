@@ -12,11 +12,11 @@
 
 ## Capturas de Tela do plicativo
 
-![GBMoney Tela Inicial](./assets/tela-inicial.png)
+![GBMoney Tela Inicial](./assets/project/home.jpeg)
 
 Gerencie suas transações com facilidade na tela inicial do GBMoney.
 
-![GBMoney Nova Transação](./assets/nova-transacao.png)
+![GBMoney Nova Transação](./assets/project/bills_form.jpeg)
 
 Adicione novas transações rapidamente com uma interface otimizada para o mobile.
 
