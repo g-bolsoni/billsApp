@@ -26,6 +26,7 @@ import Toast from "react-native-toast-message";
 import { handleGetBills } from "../../Components/TableInfo/actions";
 import { BillsContext } from "../../Contexts/BillsContext";
 import { CategoryContext } from "../../Contexts/CategoryContext";
+import React from "react";
 
 const billSchema = z.object({
   bill_name: z.string().min(1, "Por favor, insira um nome."),
@@ -166,7 +167,7 @@ export function Forms({ navigation }: any) {
               render={({ field: { onChange, onBlur, value } }) => (
                 <Picker
                   selectedValue={value}
-                  onValueChange={(itemValue) => onChange(itemValue)}
+                  onValueChange={(itemValue: any) => onChange(itemValue)}
                   style={styles.input}
                 >
                   <Picker.Item label="Entrada" value="Income" />
@@ -212,7 +213,7 @@ export function Forms({ navigation }: any) {
               render={({ field: { onChange, onBlur, value } }) => (
                 <Picker
                   selectedValue={value}
-                  onValueChange={(itemValue) => onChange(itemValue)}
+                  onValueChange={(itemValue: any) => onChange(itemValue)}
                   style={styles.input}
                 >
                   {categoriesPickerArray.length > 0 ? (
@@ -276,7 +277,7 @@ export function Forms({ navigation }: any) {
               render={({ field: { onChange, onBlur, value } }) => (
                 <Picker
                   selectedValue={value}
-                  onValueChange={(itemValue) => onChange(itemValue)}
+                  onValueChange={(itemValue: any) => onChange(itemValue)}
                   style={styles.input}
                 >
                   <Picker.Item label="Pix" value="pix" />
