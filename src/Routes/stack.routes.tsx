@@ -1,6 +1,6 @@
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StatusBar, StyleSheet, Text, View } from "react-native";
 
 import Icon from "react-native-vector-icons/Entypo";
 import logo from "../../assets/logo.png";
@@ -31,8 +31,93 @@ export function StackRoutes() {
   return (
     <>
       {user ? (
-        <BillsProvider>
-          <CategoriesProvider>
+        <>
+          <StatusBar />
+          <BillsProvider>
+            <CategoriesProvider>
+              <Navigator
+                screenOptions={{
+                  headerStyle: {
+                    backgroundColor: colors.gray[700],
+                  },
+                  headerTintColor: colors.gray[200],
+                  headerTitleAlign: "left",
+                  headerTitle: (props) => (
+                    <View style={styles.logoSection}>
+                      <Image source={logo} style={styles.logo} />
+                      <Text style={styles.title}>Gb Money</Text>
+                    </View>
+                  ),
+                }}
+              >
+                <Screen
+                  name="Home"
+                  component={Home}
+                  options={{
+                    headerLeft: () => {
+                      return (
+                        <Icon
+                          name="menu"
+                          style={{ marginStart: 20 }}
+                          onPress={() =>
+                            navigation.dispatch(DrawerActions.openDrawer())
+                          }
+                          size={30}
+                          color="#fff"
+                        />
+                      );
+                    },
+                  }}
+                />
+                <Screen
+                  name="Categories"
+                  component={Categories}
+                  options={{
+                    headerLeft: () => {
+                      return (
+                        <Icon
+                          name="menu"
+                          style={{ marginStart: 20 }}
+                          onPress={() =>
+                            navigation.dispatch(DrawerActions.openDrawer())
+                          }
+                          size={30}
+                          color="#fff"
+                        />
+                      );
+                    },
+                  }}
+                />
+                <Screen
+                  name="Profile"
+                  component={Profile}
+                  options={{
+                    headerLeft: () => {
+                      return (
+                        <Icon
+                          name="menu"
+                          style={{ marginStart: 20 }}
+                          onPress={() =>
+                            navigation.dispatch(DrawerActions.openDrawer())
+                          }
+                          size={30}
+                          color="#fff"
+                        />
+                      );
+                    },
+                  }}
+                />
+                <Screen name="Forms" component={Forms} />
+                <Screen name="CategoriesForms" component={CategoryForms} />
+                <Screen name="EditProfile" component={EditProfile} />
+              </Navigator>
+            </CategoriesProvider>
+          </BillsProvider>
+        </>
+      ) : (
+        <>
+          <StatusBar />
+          <ForgotPasswordProvider>
             <Navigator
               screenOptions={{
                 headerStyle: {
@@ -49,107 +134,28 @@ export function StackRoutes() {
               }}
             >
               <Screen
-                name="Home"
-                component={Home}
-                options={{
-                  headerLeft: () => {
-                    return (
-                      <Icon
-                        name="menu"
-                        style={{ marginStart: 20 }}
-                        onPress={() =>
-                          navigation.dispatch(DrawerActions.openDrawer())
-                        }
-                        size={30}
-                        color="#fff"
-                      />
-                    );
-                  },
-                }}
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
               />
               <Screen
-                name="Categories"
-                component={Categories}
-                options={{
-                  headerLeft: () => {
-                    return (
-                      <Icon
-                        name="menu"
-                        style={{ marginStart: 20 }}
-                        onPress={() =>
-                          navigation.dispatch(DrawerActions.openDrawer())
-                        }
-                        size={30}
-                        color="#fff"
-                      />
-                    );
-                  },
-                }}
+                name="Register"
+                component={Register}
+                options={{ headerShown: false }}
               />
               <Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                  headerLeft: () => {
-                    return (
-                      <Icon
-                        name="menu"
-                        style={{ marginStart: 20 }}
-                        onPress={() =>
-                          navigation.dispatch(DrawerActions.openDrawer())
-                        }
-                        size={30}
-                        color="#fff"
-                      />
-                    );
-                  },
-                }}
+                name="ForgotPassword"
+                component={ForgotPassword}
+                options={{ headerShown: false }}
               />
-              <Screen name="Forms" component={Forms} />
-              <Screen name="CategoriesForms" component={CategoryForms} />
-              <Screen name="EditProfile" component={EditProfile} />
+              <Screen
+                name="ResetPasswordConfirmation"
+                component={ResetPasswordConfirmation}
+                options={{ headerShown: false }}
+              />
             </Navigator>
-          </CategoriesProvider>
-        </BillsProvider>
-      ) : (
-        <ForgotPasswordProvider>
-          <Navigator
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: colors.gray[700],
-              },
-              headerTintColor: colors.gray[200],
-              headerTitleAlign: "left",
-              headerTitle: (props) => (
-                <View style={styles.logoSection}>
-                  <Image source={logo} style={styles.logo} />
-                  <Text style={styles.title}>Gb Money</Text>
-                </View>
-              ),
-            }}
-          >
-            <Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Screen
-              name="Register"
-              component={Register}
-              options={{ headerShown: false }}
-            />
-            <Screen
-              name="ForgotPassword"
-              component={ForgotPassword}
-              options={{ headerShown: false }}
-            />
-            <Screen
-              name="ResetPasswordConfirmation"
-              component={ResetPasswordConfirmation}
-              options={{ headerShown: false }}
-            />
-          </Navigator>
-        </ForgotPasswordProvider>
+          </ForgotPasswordProvider>
+        </>
       )}
     </>
   );

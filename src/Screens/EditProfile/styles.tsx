@@ -116,14 +116,12 @@ export const styles = StyleSheet.create({
   },
   // Inputs
   inputText: {
-    borderBottomColor: colors.gray[200],
-    borderBottomWidth: 1,
-    // borderWidth: 1,
-    width: "100%",
     borderRadius: 8,
-    height: 30,
-    paddingLeft: 10,
+    marginBottom: 10,
+    padding: 10,
+    height: 45,
     color: colors.gray[200],
+    backgroundColor: colors.gray[700],
   },
   // Inputs - label
   label: {
